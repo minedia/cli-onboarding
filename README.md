@@ -1,7 +1,6 @@
 # CLI入門講座 〜黒い画面と仲良くなる60分〜
 
 [![Build slides](https://github.com/minedia/cli-basics/actions/workflows/release.yml/badge.svg)](https://github.com/minedia/cli-basics/actions/workflows/release.yml)
-[![Latest release](https://img.shields.io/github/v/release/minedia/cli-basics?label=latest%20slides)](https://github.com/minedia/cli-basics/releases/latest)
 
 Minedia社員向け（社外公開可）の UNIX / CLI 入門ハンズオン講座の資料リポジトリです。
 
