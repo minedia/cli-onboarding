@@ -126,15 +126,11 @@ GUIだけでPCを使うのは、カーナビしか付いていない車で出張
 
 ## 制作環境
 
-知識共有のためにオープンにします。
-
 - **作成ツール**: [Claude Code Desktop（Cowork mode）](https://www.anthropic.com/claude-code) + **Claude Opus 4.7**
 - **スライド**: [Marp](https://marp.app/) — Markdown → PDF / PPTX / HTML
 - **CI / 配布**: GitHub Actions（main push でビルド、`v*` タグで Release 自動生成）
-- **デザイン**: Minedia Design System（[minedia-skills](https://github.com/minedia/minedia-skills) の `corporate-identity/minedia-design` を Marp 用 CSS に移植）
+- **デザイン**: Minedia Design System
 
-CTO（松倉）が Claude Code Desktop の Cowork mode で対話しながら、構成・原稿・テーマCSS・CIワークフローまで含めて一気通貫で作成しました。
-**AIエージェントで講座資料を作る** こと自体が、本講座のメッセージ（「AIに業務を任せられる人になる」）の実演でもあります。
 
 ---
 
