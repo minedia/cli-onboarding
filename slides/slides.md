@@ -105,13 +105,41 @@ CLI が使える環境を持っていること自体が、**AI の "燃費" と 
 |---|---|---|
 | 0:00 | 6  | 00. オープニング（今ここ） |
 | 0:06 | 4  | 01. CLI と GUI の違い |
-| 0:10 | 9  | 02. シェルとコマンドの基礎 |
-| 0:19 | 13 | 03. ファイル・ディレクトリ操作 |
-| 0:32 | 5  | 04. 探す：`find` と `grep` |
-| 0:37 | 4  | 05. 環境変数 |
-| 0:41 | 10 | 06. プログラムを書いて動かす ★ゴール |
-| 0:51 | 7  | 07. 応用デモ |
-| 0:58 | 2  | 08. クロージング |
+| 0:10 | 10 | 02. シェルとコマンドの基礎＋ショートカット |
+| 0:20 | 13 | 03. ファイル・ディレクトリ操作 |
+| 0:33 | 5  | 04. 探す：`find` と `grep` |
+| 0:38 | 3  | 05. 環境変数 |
+| 0:41 | 9  | 06. プログラムを書いて動かす ★ゴール |
+| 0:50 | 2  | 07. 次に効くコマンド集 |
+| 0:52 | 5  | 08. 応用デモ |
+| 0:57 | 3  | 09. クロージング |
+
+---
+
+## 🔧 ハンズオンの前提：環境チェック
+
+今日のハンズオンを動かすために、以下を確認してください。
+
+**Mac / Linux**
+ターミナルは標準搭載。**追加インストール不要**。
+Python は多くの場合 `python3` が標準で入っている。
+
+**Windows**
+[Git for Windows](https://git-scm.com/download/win) をインストール → **Git Bash** が入る。
+さらに [python.org](https://www.python.org/downloads/) から Python をインストール（**`Add Python to PATH` 必須**）。
+
+**事前確認**：ターミナルを開いて
+```bash
+python --version        # Windows / Linux
+python3 --version       # Mac
+```
+→ `Python 3.x.x` と表示されれば準備 OK。
+
+<div class="callout">
+
+うまく出ない場合は今のうちに講師か Slack `#ai` まで連絡してください。
+
+</div>
 
 ---
 
@@ -273,6 +301,32 @@ ls --help
 
 ---
 
+## ⌨️ ショートカットキー — ハマったときの命綱
+
+| キー | 効果 |
+|---|---|
+| **`Ctrl + C`** | 実行中のコマンドを止める ★まず覚える |
+| **`Ctrl + L`** | 画面をクリア（`clear` と同じ） |
+| **`Ctrl + R`** | 履歴をインクリメンタル検索 |
+| **`Ctrl + A` / `Ctrl + E`** | 行頭 / 行末へカーソル移動 |
+| **`Ctrl + D`** | ターミナルを閉じる（`exit` と同じ） |
+
+<div class="callout">
+
+特に **`Ctrl + C`** は最重要。
+「何か止まらない！」「ハマった！」と思ったらまず `Ctrl + C`。
+
+</div>
+
+<!--
+講師ノート:
+- Ctrl+C は実演する（無限ループするコマンドを打って止めて見せる）。例：sleep 100 を Ctrl+C で止める。
+- Ctrl+R は履歴検索デモを1回見せると印象に残る。
+-->
+
+
+---
+
 <!-- _class: section -->
 
 <p class="eyebrow">SECTION</p>
@@ -342,6 +396,20 @@ ls
 
 `mkdir` `cp` `mv` `rm` — この 4 つで**作る・複製・移動・消す**が全部できる。
 
+**おまけ**：フォルダ構造を一発で見たいときは `tree`
+
+```bash
+tree ~/cli-handson
+```
+
+```
+cli-handson
+├── memo.txt
+└── ...
+```
+
+Mac は `brew install tree` でインストール、Git Bash は標準搭載。
+
 ---
 
 <!-- _class: dark -->
@@ -363,6 +431,32 @@ rm -rf /     # ← 絶対やってはいけない。PC が死ぬ
 
 **`rm` する前に必ず `ls` で確認する癖**をつける。
 これは今日いちばん大事なルール。
+
+</div>
+
+---
+
+## 🔁 ターミナル ⇄ GUI を行き来する
+
+ターミナルから「今いるフォルダ」を、エクスプローラー / Finder で開ける。
+
+**Mac**
+```bash
+open .
+```
+
+**Windows（Git Bash）**
+```bash
+explorer .
+```
+
+- `.` = カレント（今ここ）
+- CLI で作業 → GUI で確認、の往復が**一瞬で**できるようになる
+- これを知らないだけで毎日 5 分は損する
+
+<div class="callout">
+
+CLI と GUI は対立じゃない。**使い分けて行き来する**のが最強。
 
 </div>
 
@@ -506,22 +600,14 @@ echo $PATH
 これさえできれば、明日からは：
 - AI が書いてくれたスクリプトを **動かせる**
 - 動かしたスクリプトを **改造できる**
-- 改造したスクリプトを **定期実行できる**
 
 → つまり、**AI に業務を本当に任せられる**ようになる。
 
-事前確認：
-```bash
-python --version    # または py --version (Windows)
-```
-バージョンが表示されれば OK。
-
 ---
 
-## 🖐 ハンズオン ⑥：`hello.py` を作って動かす
+## 🖐 ハンズオン ⑥-A：`hello.py` を**書く**
 
-**1. テキストエディタで以下を書いて保存**（メモ帳でOK）
-保存先：`~/cli-handson/hello.py`
+テキストエディタ（メモ帳でOK）を開いて、以下を入力：
 
 ```python
 # hello.py
@@ -529,20 +615,27 @@ name = "Minedia"
 print(f"Hello, {name}!")
 ```
 
-**2. ターミナルで実行**
+保存先：`~/cli-handson/hello.py`
+
+保存できたら、ターミナルへ戻る。
+
+---
+
+## 🖐 ハンズオン ⑥-B：ターミナルで**実行**
 
 ```bash
 cd ~/cli-handson
 python hello.py
 ```
 
-**3. 表示されるはず**
+これが表示されたら成功：
 
 ```
 Hello, Minedia!
 ```
 
-Windows で `python` がないときは `python3` を試す（Git Bash でも同じく `python3 hello.py`）。
+**Mac で `python` がない場合**：`python3 hello.py` を試す。
+**Windows で動かない場合**：Git Bash を一度閉じて、開き直してから再試行（`PATH` が反映されていない可能性）。
 
 ---
 
@@ -560,6 +653,25 @@ Windows で `python` がないときは `python3` を試す（Git Bash でも同
 ✅ **自分で書いたプログラムを動かした**
 
 これで、Claude Code もPython スクリプトも、もう怖くない。
+
+---
+
+## 📚 次に覚えると劇的に効くコマンド集
+
+今日のあと、業務で**5回に1回**は出番が来ます。
+
+| コマンド | できること |
+|---|---|
+| `curl` | API を叩く / ファイルをダウンロード |
+| `head` / `tail` | ファイルの先頭・末尾だけ表示（大きいCSV・ログに） |
+| `wc -l` | 行数カウント（「データ何件？」の即答） |
+| `history` / `Ctrl + R` | 過去のコマンドを呼び戻す・検索 |
+| `tree` | フォルダ構造を図示 |
+| `open .` / `explorer .` | 今のフォルダを GUI で開く |
+| `zip` / `unzip` | 圧縮・解凍 |
+| `diff` | ファイル比較 |
+
+→ 詳しくは **次回 or チートシート** で。Claude Code に「これを使って〇〇して」と頼むだけでもOK。
 
 ---
 
@@ -612,19 +724,39 @@ for i in {1..100}; do touch "report_$(printf "%03d" $i).txt"; done
 
 ---
 
-## デモ ③ — シェルスクリプトで自動化
+## デモ ③ — Excel / CSV を **1秒で集計**
 
-```bash
-#!/bin/bash
-# daily_backup.sh
-DATE=$(date +%Y%m%d)
-cp -r ~/Documents ~/Backups/docs_$DATE
-echo "Backup done: docs_$DATE"
+Excel で「地域ごとの売上合計」を出す → ピボットテーブル作って...で 5 分。
+CLI なら 5 行のスクリプトで一瞬：
+
+```python
+# sales_summary.py
+import pandas as pd
+
+df = pd.read_csv('sales.csv')
+print(df.groupby('region')['amount'].sum())
+print(f"\n合計: {df['amount'].sum():,.0f} 円")
 ```
 
-これを **タスクスケジューラ（Windows）** や **cron（Mac）** に登録すれば、毎朝自動でバックアップ。
+```bash
+python sales_summary.py
+```
 
-→ 「毎日朝イチでこれやる」みたいな**繰り返し作業はすべて消える**。
+→ 結果が即表示。**100行でも100万行でも同じ速度**。
+
+<div class="callout">
+
+しかも、このスクリプトは Claude Code に「`sales.csv` を地域ごとに集計して」と頼めば**自動生成**される。
+「**AI が書く → 自分で動かす**」の典型ケース。今日学んだことで、これが**できる側**になった。
+
+</div>
+
+<!--
+講師ノート:
+- 実演する場合、事前に sales.csv（regionとamountを含む）を用意しておく。データはダミーで OK。
+- Excel と並べて見せると説得力UP（Excelでピボット作る時間 vs python 一行）。
+-->
+
 
 ---
 
