@@ -1,0 +1,129 @@
+name: Build slides and create release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'slides/**'
+      - '.github/workflows/release.yml'
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build slides (PDF / PPTX / HTML)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Noto fonts (Japanese)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build PDF
+        working-directory: slides
+        run: |
+          marp slides.md \
+            --theme themes/minedia.css \
+            --pdf \
+            --allow-local-files \
+            -o cli-basics-slides.pdf
+
+      - name: Build PPTX
+        working-directory: slides
+        run: |
+          marp slides.md \
+            --theme themes/minedia.css \
+            --pptx \
+            --allow-local-files \
+            -o cli-basics-slides.pptx
+
+      - name: Build HTML
+        working-directory: slides
+        run: |
+          marp slides.md \
+            --theme themes/minedia.css \
+            --html \
+            --allow-local-files \
+            -o cli-basics-slides.html
+
+      - name: Verify outputs
+        run: |
+          ls -la slides/cli-basics-slides.pdf
+          ls -la slides/cli-basics-slides.pptx
+          ls -la slides/cli-basics-slides.html
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides-${{ github.sha }}
+          path: |
+            slides/cli-basics-slides.pdf
+            slides/cli-basics-slides.pptx
+            slides/cli-basics-slides.html
+          retention-days: 30
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: slides-${{ github.sha }}
+          path: dist
+
+      - name: Show downloaded files
+        run: ls -la dist/
+
+      - name: Compute version info
+        id: meta
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          DATE_JP="$(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M JST')"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "date_jp=$DATE_JP" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.version }}
+          name: "CLI入門講座 スライド ${{ steps.meta.outputs.version }}"
+          body: |
+            **CLI入門講座 スライド ${{ steps.meta.outputs.version }}**
+
+            - **リリース日時**: ${{ steps.meta.outputs.date_jp }}
+            - **コミット**: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+            - **ワークフロー実行**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            ## ダウンロード
+
+            - **`cli-basics-slides.pdf`** — PDF版（印刷・配布用）
+            - **`cli-basics-slides.pptx`** — PowerPoint版（編集したい場合）
+            - **`cli-basics-slides.html`** — ブラウザ版（最も忠実に表示される）
+          files: |
+            dist/cli-basics-slides.pdf
+            dist/cli-basics-slides.pptx
+            dist/cli-basics-slides.html
+          make_latest: true
+          draft: false
+          prerelease: false

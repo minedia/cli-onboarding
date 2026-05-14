@@ -1,0 +1,526 @@
+/* @theme minedia */
+
+/*
+ * Minedia Design System for Marp
+ *
+ * Source of truth (元):
+ *   github.com/minedia/minedia-skills
+ *     plugins/corporate-identity/skills/minedia-design/DESIGN.md
+ *     plugins/corporate-identity/skills/minedia-design/slides/DESIGN.md
+ *     plugins/corporate-identity/skills/minedia-design/slides/generate.py
+ *
+ * Contract (必ず守る):
+ *   - 全スライドに下端 CI グラデーションバー (#EC3737 → #F5AA77) 必須
+ *   - 全スライドに右下 Minedia ロゴ必須
+ *   - タイトル付きスライドはタイトル左に縦グラデアクセント
+ *     （cover / section / quote / closing では省略）
+ *   - 角は基本 sharp、rounded は限定箇所のみ
+ *   - ページ番号なし
+ *   - フォントは Noto Sans JP（見出し・本文）/ Sometype Mono（ラベル・数値）
+ *   - CI グラデを大面積背景に敷かない（点アクセントに限定）
+ */
+
+@import 'default';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Sometype+Mono:wght@400;500;700&display=swap');
+
+/* ─────────────────────────────────────
+   Design Tokens
+   ───────────────────────────────────── */
+:root {
+  /* Brand (CI) */
+  --ci-flat:        #EC3737;
+  --ci-sub:         #E24C43;
+  --ci-grad-start:  #EC3737;
+  --ci-grad-end:    #F5AA77;
+
+  /* Neutral scale */
+  --neutral-dark:   #3C3C3C;
+  --neutral-body:   #4D4D4D;
+  --neutral-500:    #6C6C6C;
+  --neutral-light:  #959595;
+  --neutral-200:    #D1D1D1;
+  --neutral-100:    #E6E6E6;
+  --neutral-50:     #F2F2F2;
+
+  /* Ash-2 */
+  --ash2-50:        #FAF8F7;
+  --ash2-100:       #F1ECE8;
+  --ash2-300:       #9C9191;
+  --ash2-500:       #6C5959;
+
+  /* Background */
+  --bg-white:       #FFFFFF;
+  --bg-sub:         #F7F3EF;
+  --bg-grad-start:  #FDE3DA;
+  --bg-grad-end:    #FCEEE1;
+
+  /* Spacing (≈ Inches(0.67) horizontal / Inches(0.55) vertical, scaled to 1280×720) */
+  --pad-x: 64px;
+  --pad-y: 53px;
+
+  /* Fonts */
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  --font-mono: 'Sometype Mono', 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ─────────────────────────────────────
+   Base: 全スライド共通
+   ───────────────────────────────────── */
+section {
+  width: 1280px;
+  height: 720px;
+  padding: var(--pad-y) var(--pad-x);
+  background: var(--bg-white);
+  color: var(--neutral-dark);
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1.7;
+  font-weight: 400;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  letter-spacing: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* §2.1 下端 CI グラデーションバー（全スライド必須） */
+section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--ci-grad-start), var(--ci-grad-end));
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* §2.8 右下 Minedia ロゴ（全スライド必須） */
+section::before {
+  content: '';
+  position: absolute;
+  bottom: 22px;
+  right: 28px;
+  width: 110px;
+  height: 22px;
+  background-image: url('../assets/text_logo.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
+  z-index: 49;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────
+   Typography (§2.4 PPTX 用タイプスケール)
+   ───────────────────────────────────── */
+h1 {
+  font-size: 64px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  margin: 0 0 0.4em 0;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-size: 40px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  margin: 0 0 0.6em 0;
+  position: relative;
+  padding-left: 22px;
+}
+
+/* §2.9 タイトル左の縦グラデーションアクセント */
+h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  width: 7px;
+  height: 1em;
+  background: linear-gradient(180deg, var(--ci-grad-start), var(--ci-grad-end));
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--neutral-body);
+  margin: 0.8em 0 0.3em 0;
+}
+
+p, ul, ol, dl, table {
+  font-size: 22px;
+  line-height: 1.7;
+  color: var(--neutral-body);
+  margin: 0 0 0.4em 0;
+}
+
+ul, ol {
+  padding-left: 1.3em;
+}
+
+li {
+  margin-bottom: 0.3em;
+}
+
+li::marker {
+  color: var(--ci-flat);
+}
+
+/* Eyebrow / mono ラベル (§2.4) */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--neutral-500);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.6em 0;
+}
+
+strong, b {
+  font-weight: 700;
+  color: var(--neutral-dark);
+}
+
+em, i {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ci-flat);
+}
+
+a {
+  color: var(--ci-flat);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ci-flat);
+}
+
+/* ─────────────────────────────────────
+   Code
+   ───────────────────────────────────── */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--neutral-50);
+  color: var(--neutral-dark);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1.6;
+  background: var(--neutral-50);
+  color: var(--neutral-dark);
+  padding: 20px 24px;
+  border-left: 4px solid var(--ci-flat);
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* ─────────────────────────────────────
+   Blockquote
+   ───────────────────────────────────── */
+blockquote {
+  border-left: none;
+  position: relative;
+  padding-left: 22px;
+  margin: 0.4em 0;
+  font-size: 24px;
+  color: var(--neutral-dark);
+  font-weight: 500;
+}
+
+blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  bottom: 0.2em;
+  width: 4px;
+  background: linear-gradient(180deg, var(--ci-grad-start), var(--ci-grad-end));
+}
+
+/* ─────────────────────────────────────
+   Table
+   ───────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 20px;
+  margin: 0.4em 0;
+}
+
+th {
+  font-weight: 700;
+  color: var(--neutral-dark);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--neutral-dark);
+  background: transparent;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--neutral-100);
+  color: var(--neutral-body);
+}
+
+tr:last-child td {
+  border-bottom-color: var(--neutral-dark);
+}
+
+/* ─────────────────────────────────────
+   Layout: cover (表紙)
+   ───────────────────────────────────── */
+section.cover {
+  background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+  justify-content: center;
+}
+
+section.cover h1 {
+  font-size: 72px;
+  line-height: 1.2;
+  margin: 0 0 0.3em 0;
+}
+
+section.cover h2 {
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--neutral-body);
+  padding-left: 0;
+  margin: 0 0 1.5em 0;
+}
+
+section.cover h2::before {
+  display: none;
+}
+
+section.cover .eyebrow {
+  font-size: 18px;
+  margin-bottom: 1.2em;
+}
+
+/* ─────────────────────────────────────
+   Layout: section (セクション区切り)
+   ───────────────────────────────────── */
+section.section {
+  background: var(--neutral-dark);
+  color: var(--bg-white);
+  justify-content: center;
+}
+
+section.section .section-number {
+  font-family: var(--font-mono);
+  font-size: 200px;
+  line-height: 1.0;
+  font-weight: 700;
+  color: var(--ci-flat);
+  margin: 0 0 0.05em 0;
+  letter-spacing: -0.02em;
+}
+
+section.section h1 {
+  font-size: 52px;
+  color: var(--bg-white);
+  margin: 0;
+}
+
+section.section h2 {
+  color: var(--bg-white);
+  padding-left: 0;
+}
+
+section.section h2::before {
+  display: none;
+}
+
+section.section .eyebrow {
+  color: var(--neutral-200);
+}
+
+/* ─────────────────────────────────────
+   Layout: dark (引き締めコンテンツ)
+   ───────────────────────────────────── */
+section.dark {
+  background: var(--neutral-dark);
+  color: var(--bg-white);
+}
+
+section.dark h1,
+section.dark h2,
+section.dark h3 {
+  color: var(--bg-white);
+}
+
+section.dark p,
+section.dark li,
+section.dark td {
+  color: var(--neutral-200);
+}
+
+section.dark th {
+  color: var(--bg-white);
+  border-bottom-color: var(--neutral-200);
+}
+
+section.dark td {
+  border-bottom-color: var(--neutral-500);
+}
+
+section.dark tr:last-child td {
+  border-bottom-color: var(--neutral-200);
+}
+
+section.dark code {
+  background: var(--neutral-500);
+  color: var(--bg-white);
+}
+
+section.dark pre {
+  background: #2A2A2A;
+  color: var(--neutral-100);
+  border-left-color: var(--ci-grad-end);
+}
+
+section.dark strong {
+  color: var(--bg-white);
+}
+
+section.dark blockquote {
+  color: var(--bg-white);
+}
+
+/* ─────────────────────────────────────
+   Layout: quote
+   ───────────────────────────────────── */
+section.quote {
+  background: var(--bg-sub);
+  justify-content: center;
+}
+
+section.quote h2,
+section.quote h2::before {
+  display: none;
+}
+
+section.quote blockquote {
+  font-size: 36px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--neutral-dark);
+  padding-left: 24px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+section.quote blockquote::before {
+  width: 6px;
+}
+
+section.quote .attribution {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--neutral-500);
+  margin-top: 1em;
+  padding-left: 24px;
+}
+
+/* ─────────────────────────────────────
+   Layout: closing
+   ───────────────────────────────────── */
+section.closing {
+  background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+  justify-content: center;
+  text-align: center;
+}
+
+section.closing h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+section.closing h2,
+section.closing h2::before {
+  display: none;
+}
+
+section.closing p {
+  font-size: 24px;
+  color: var(--neutral-body);
+}
+
+/* ─────────────────────────────────────
+   Utilities
+   ───────────────────────────────────── */
+
+/* キーメッセージのコールアウト */
+.callout {
+  background: var(--bg-sub);
+  padding: 20px 24px;
+  border-left: 4px solid var(--ci-flat);
+  margin: 0.5em 0;
+  font-size: 24px;
+  color: var(--neutral-dark);
+}
+
+section.dark .callout {
+  background: #4A4A4A;
+  color: var(--bg-white);
+  border-left-color: var(--ci-grad-end);
+}
+
+/* 大きな数字（KPI / Metric） */
+.metric {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 120px;
+  line-height: 1.0;
+  font-weight: 700;
+  color: var(--ci-flat);
+  letter-spacing: -0.03em;
+}
+
+.metric-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--neutral-500);
+  margin-top: 0.3em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* 2 カラム */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin: 0.4em 0;
+}
+
+/* 中央寄せヘルパー */
+.center {
+  text-align: center;
+}
+
+/* Marp 既定の header/footer は使わない */
+header, footer {
+  display: none;
+}

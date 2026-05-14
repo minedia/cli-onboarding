@@ -20,3 +20,9 @@ node_modules/
 # Build
 dist/
 build/
+
+# Marp build outputs
+slides/*.html
+slides/*.pdf
+slides/*.pptx
+slides/*.png
