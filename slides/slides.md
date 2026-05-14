@@ -4,8 +4,8 @@ theme: minedia
 paginate: false
 size: 16:9
 title: CLI入門講座
-author: 松倉 友樹（Minedia CTO）
-description: AI時代に効く、いちばん基礎の「英語」を60分で
+author: 松倉 友樹（Minedia, Inc. CTO）
+description: Claude Code をもっと使いこなすための、CLI 入門 60 分
 ---
 
 <!-- _class: cover -->
@@ -13,9 +13,9 @@ description: AI時代に効く、いちばん基礎の「英語」を60分で
 <p class="eyebrow">MINEDIA / TECH SESSION — 2026</p>
 
 # CLI入門講座
-## 〜AI時代に効く、いちばん基礎の「英語」を60分で〜
+## 〜Claude Code をもっと使いこなすための、CLI 入門 60 分〜
 
-<p class="eyebrow" style="margin-top:2em">松倉 友樹 — Minedia CTO</p>
+<p class="eyebrow" style="margin-top:2em">松倉 友樹 — Minedia, Inc. CTO</p>
 
 ---
 
@@ -59,20 +59,7 @@ AIエージェント（Claude Code、Cursor、各種MCP）は、GUIではなく 
 
 ## さらに：Claude Code の "裏側" もまったく違う
 
-同じ「このプロジェクトから TODO を全部探して」という依頼でも：
-
-|  | CLI 環境（あなたが使える） | GUI 環境（CLI が分からない） |
-|---|---|---|
-| AI 内部の動作 | `grep -r "TODO" .` を実行 | スクショ → 解析 → 座標特定 → クリック → スクショ... |
-| 所要時間 | **0.5 秒** | 数分〜十数分 |
-| トークン消費 | 約 1,000 | **数十万〜数百万**（数百倍） |
-| 失敗時の回復 | コマンドを直して再実行 | 何が起きたか不明・最初からやり直し |
-
-<div class="callout">
-
-CLI が使える環境を持っていること自体が、**AI の "燃費" と "賢さ" を桁違いに上げる**。
-
-</div>
+<img src="assets/illustrations/ai-cli-vs-gui.svg" class="illustration-wide" alt="同じ依頼でも CLI環境とGUI環境で AIの動作が桁違い"/>
 
 ---
 
@@ -86,16 +73,33 @@ CLI が使える環境を持っていること自体が、**AI の "燃費" と 
 
 ---
 
+## 🎯 この講座のターゲット
+
+**Claude Code は既に使っている。でも、もっと使いこなしたい人**のための講座です。
+
+**こんな人に向けて：**
+- Claude Code に頼んで出てきたコマンドの**意味がわからない**
+- 「ターミナルでこれを実行してください」で**詰まる**
+- カレントディレクトリ・環境変数・パス と聞いて**ピンと来ない**
+- 100 ファイルの処理を GUI で 1 個ずつクリックしている
+
+**前提：**
+- Claude Code はインストール済み（簡単な使い方は知っている）
+- 「黒い画面が怖い」レベルで OK
+- ノート PC を持参（Mac / Windows いずれも対応）
+
+---
+
 ## 今日のゴール
 
 受講後、以下ができるようになります。
 
 1. ターミナル（Git Bash on Windows / macOS ターミナル）を**自分で開ける**
-2. カレントディレクトリ・ホームディレクトリの概念を**説明できる**
+2. カレントディレクトリ・ホームディレクトリの概念を**説明できる**（`~` の意味も）
 3. 基本のファイル / ディレクトリ操作コマンドが**打てる**
 4. `find` / `grep` で **探せる**（= AI の心臓部と同じこと）
 5. 環境変数 `PATH` を**覗いて意味がわかる**
-6. ★ **自分で書いたプログラムをターミナルから実行できる**
+6. ★ **Claude Code を自分のターミナルから起動して、業務を任せられる**
 
 ---
 
@@ -122,18 +126,18 @@ CLI が使える環境を持っていること自体が、**AI の "燃費" と 
 
 **Mac / Linux**
 ターミナルは標準搭載。**追加インストール不要**。
-Python は多くの場合 `python3` が標準で入っている。
 
 **Windows**
-[Git for Windows](https://git-scm.com/download/win) をインストール → **Git Bash** が入る。
-さらに [python.org](https://www.python.org/downloads/) から Python をインストール（**`Add Python to PATH` 必須**）。
+[Git for Windows](https://git-scm.com/download/win) をインストール → **Git Bash** が入る（事前案内で完了済み）。
+
+**全員：Claude Code**
+インストール済みの前提です。ターミナルで `claude --version` で確認できます。
 
 **事前確認**：ターミナルを開いて
 ```bash
-python --version        # Windows / Linux
-python3 --version       # Mac
+claude --version
 ```
-→ `Python 3.x.x` と表示されれば準備 OK。
+→ バージョンが表示されれば準備 OK。
 
 <div class="callout">
 
@@ -154,34 +158,39 @@ python3 --version       # Mac
 
 ## CLI と GUI — 2つの「PCの動かし方」
 
-**GUI**（Graphical User Interface）
-= 指差し注文。メニューを見て、ボタンをクリックする。
-
-**CLI**（Command Line Interface）
-= 言葉で注文。「ホットコーヒー一つ」と打ち込む。
+<img src="assets/illustrations/cli-vs-gui.svg" class="illustration-wide" alt="CLI vs GUI 対比図"/>
 
 |  | GUI | CLI |
 |---|---|---|
-| 入力 | マウス（指） | キーボード（言葉） |
+| 入力 | マウス（指差し） | キーボード（言葉） |
 | 大量処理 | 苦手（1個ずつクリック） | 得意（1コマンドで何百個も） |
 | 自動化 | 難しい | カンタン |
 | AI との相性 | 悪い | 抜群 |
 
 ---
 
+## もう1つの比較軸 — text vs binary
+
+CLI vs GUI が「**操作方法**」の比較なら、text vs binary は「**保存形式**」の比較。
+
+<img src="assets/illustrations/text-vs-binary.svg" class="illustration-wide" alt="binary（鍵付き）と text（中身が見える）の対比"/>
+
+<div class="callout">
+
+**同じ内容なら、可能な限り text 形式を選ぶ**と、AIに任せやすい。
+例：Word の議事録 → Markdown、Excel の管理表 → CSV、PowerPoint → **Marp（このスライドがまさにそれ）**
+
+</div>
+
+---
+
 ## 🖐 ハンズオン ①：ターミナルを開く
 
-**Windows**（Git Bash）
-1. スタートメニューを開く
-2. `Git Bash` と入力（Git for Windows をインストール済みなら入っている）
-3. Enter で起動
+<img src="assets/illustrations/git-bash-launch.svg" class="illustration-wide" alt="Windows で Git Bash を開く2つの方法"/>
 
-**Mac**
-1. `Cmd + Space` で Spotlight を開く
-2. `ターミナル` と入力
-3. Enter で起動
+**Mac の場合**: `Cmd + Space` → `ターミナル` と入力 → Enter
 
-開いたら、全員でこれを打ってください：
+**動作確認**: 全員でこれを打ってください
 
 ```bash
 echo Hello
@@ -191,7 +200,8 @@ echo Hello
 
 <!--
 講師ノート:
-- Windowsは PowerShell ではなく Git Bash で統一する。理由：Git Bash なら Mac と同じ Unix コマンドがそのまま動くので、講座中に方言差を説明しなくて済む。
+- Windowsユーザーで Git Bash が見つからない場合：Git for Windows のインストール失敗が疑われる。再インストールを案内。
+- Windowsの「PowerShell が真っ先に出てしまう」あるあるに注意。Git Bash のアイコンを口頭で説明（黒地に $ マークの白いアイコン）。
 -->
 
 
@@ -210,20 +220,13 @@ echo Hello
 
 **シェル = 「あなた」と「PC」の間に立つ通訳**
 
-あなたが日本語/コマンドで指示
-　　↓
-シェルが翻訳
-　　↓
-PC が動く
+<img src="assets/illustrations/shell-interpreter.svg" class="illustration-wide" alt="シェルは人とPCの通訳"/>
 
-代表的なシェル：
-- **bash**（Git Bash on Windows、WSL、Linux）
-- **zsh**（macOS 標準）
-
-今日は **どちらを使っても OK**。Git Bash も zsh も、入門範囲の打ち方はほぼ同じ。
+代表的なシェル：**bash**（Git Bash on Windows / Linux）、**zsh**（macOS 標準）。
+今日は**どちらでも OK**。入門範囲の打ち方はほぼ同じ。
 
 > Windows ユーザーは **PowerShell ではなく Git Bash** を使ってください。
-> 同じコマンドが Mac とそのまま動くので、講座中に方言を気にする必要がありません。
+> Mac と同じコマンドがそのまま動くので、講座中に方言を気にする必要がなくなります。
 
 ---
 
@@ -232,24 +235,11 @@ PC が動く
 <div class="callout">
 
 CLI で打つもの = **スペースで区切った単語の列**。
-それ以上でも以下でもない。
+一番左がコマンド、それより右はぜんぶ追加指示。
 
 </div>
 
-ルールは **たった 2 つ**：
-
-1. **一番左の単語 = コマンド名**（何をするか）
-2. **それより右の単語 = 全部そのコマンドへの "追加指示"**
-
-```
-ls   -la   /Users
-└┬┘  └─┬─┘  └─┬──┘
- │     │     └── 「どこの」を指定する追加指示
- │     └──────── 「どう表示するか」の追加指示（- や -- で始まる）
- └────────────── コマンド名（一覧表示せよ）
-```
-
-スペースで区切る。右側は何個並べても OK。
+<img src="assets/illustrations/command-anatomy.svg" class="illustration-wide" alt="ls -la /Users の解剖図"/>
 
 ---
 
@@ -264,7 +254,7 @@ ls   -la   /Users
 ```bash
 ls --help
 git --help
-python --help
+claude --help
 ```
 
 ほぼ全てのコマンドが、慣習的に `--help` で**使い方を表示**してくれる。
@@ -342,8 +332,40 @@ ls --help
 
 - **カレントディレクトリ**：今あなたが立っている場所（`pwd` で確認）
 - **ホームディレクトリ**：あなたの「家」
-  - Windows: `C:\Users\<あなた>`
   - Mac: `/Users/<あなた>`
+  - Windows: `C:\Users\<あなた>`（`C:` は PC のメインドライブの意味）
+  - Git Bash で見ると `/c/Users/<あなた>` の形式になる
+
+> 社用PCで OneDrive 同期が ON だと、ホームが `OneDrive - 会社名` 配下になることがあります。困ったら社内 Slack `#ai` で。
+
+---
+
+## Claude Code とカレントディレクトリ
+
+Claude Code は、**起動した時点のカレントディレクトリを起点**に動く。
+
+- そのディレクトリ ＋ 配下のファイルが「作業対象」
+- **上位や別のディレクトリには基本アクセスしない**（必要なら都度パーミッションを求められる）
+- つまり、カレントディレクトリは Claude Code にとって**最重要のコンテキスト**
+
+```bash
+# プロジェクトA で起動 → A の中だけ見える
+cd ~/project-a
+claude
+
+# プロジェクトB で起動 → B の中だけ見える
+cd ~/project-b
+claude
+```
+
+<div class="callout">
+
+**どこで起動するかで、Claude Code の "視野" が決まる。**
+だから本日のハンズオン⑥でも、まず `cd ~/cli-handson` してから `claude` を起動する。
+
+</div>
+
+---
 
 ## ホームディレクトリの省略記号 — `~`（チルダ）
 
@@ -355,35 +377,47 @@ ls --help
 
 </div>
 
-- `cd ~` と書けば、どこにいても**一発でホームに戻れる**
+**`~` の入力方法（地味だけどここでハマる人多い）**
+- Mac（JIS配列）: `Shift + ^`（数字「0」の右隣、「ほ」のキー）
+- Mac（US配列）: `Shift + `` `（数字「1」の左、Tab の上）
+- Windows（JIS配列）: `Shift + ^`（数字「0」の右隣、「へ」のキー）
+- Windows（US配列）: `Shift + `` `（数字「1」の左）
+
+**使い方：**
+- `cd ~` で、どこにいても**一発でホームに戻れる**
 - `cd ~/Documents` のように、ホーム起点の道順も書ける
-- ターミナルのプロンプトに `~` と出ていたら = 「今ホームにいる」のサイン
+- ターミナルのプロンプトに `~` と出ていたら = 「今ホームにいる」サイン
 
-**絶対パスと相対パス**
+---
 
-- 絶対パス：`/Users/yuki/Desktop/memo.txt`（住所をフルで）
-- 相対パス：`Desktop/memo.txt`（現在地からの道順）
+## 絶対パスと相対パス
+
+<img src="assets/illustrations/directory-tree.svg" class="illustration" alt="ディレクトリツリー：ホーム と カレント"/>
+
+- 絶対パス：`/Users/yuki/cli-handson`（住所をフルで）
+- 相対パス：`cli-handson`（今いる場所からの道順）
 - `.` = カレント（今ここ）／ `..` = 一つ上
 
 ---
 
-## 🖐 ハンズオン ③：作業フォルダで CRUD
-
-**(1) ターミナルで作業フォルダを作る**
+## 🖐 ハンズオン ③-A：作業フォルダを作る
 
 ```bash
-cd ~                  # ホームに移動
-mkdir cli-handson     # フォルダを作る
-cd cli-handson        # 移動
-pwd                   # 今ここを確認
+cd ~                          # ホームに移動（cd だけでも可）
+mkdir cli-handson             # フォルダを作る
+cd cli-handson                # 移動
+pwd                           # 今ここを確認
+echo "Hello CLI" > memo.txt   # ファイルを1コマンドで作る
 ```
 
-**(2) テキストエディタで `memo.txt` を作る**
-- メモ帳（Windows） / TextEdit（Mac） / 好きなエディタを開く
-- 中身：`Hello CLI`
-- 保存先：`~/cli-handson/memo.txt`
+> `>` は「**コマンドの出力を、ファイルに保存する**」記号（リダイレクト）。
+> 詳細は応用編で扱うが、ここではエディタを開かずに済むので使う。
 
-**(3) ターミナルに戻って、ファイルを操作する**
+---
+
+## 🖐 ハンズオン ③-B：ファイル操作（作る・複製・移動・消す）
+
+ターミナルに戻って：
 
 ```bash
 ls                    # memo.txt が見えるはず
@@ -394,9 +428,15 @@ rm log.txt            # 削除
 ls
 ```
 
-`mkdir` `cp` `mv` `rm` — この 4 つで**作る・複製・移動・消す**が全部できる。
+<div class="callout">
 
-**おまけ**：フォルダ構造を一発で見たいときは `tree`
+`mkdir` `cp` `mv` `rm` — この 4 つで **作る・複製・移動・消す** が全部できる。
+
+</div>
+
+---
+
+## おまけ：`tree` でフォルダ構造を一発で見る
 
 ```bash
 tree ~/cli-handson
@@ -404,11 +444,11 @@ tree ~/cli-handson
 
 ```
 cli-handson
-├── memo.txt
-└── ...
+└── memo.txt
 ```
 
-Mac は `brew install tree` でインストール、Git Bash は標準搭載。
+- Mac は `brew install tree` でインストール
+- Git Bash は標準搭載
 
 ---
 
@@ -426,6 +466,14 @@ Mac は `brew install tree` でインストール、Git Bash は標準搭載。
 ```bash
 rm -rf /     # ← 絶対やってはいけない。PC が死ぬ
 ```
+
+**消す代わりに `mv` で「横にどけておく」と安心：**
+
+```bash
+mv test.md old-test.md
+```
+
+→ 「やっぱ戻したい」のときに戻せる。
 
 <div class="callout">
 
@@ -500,16 +548,17 @@ grep -n "import" hello.py     # 行番号付きで表示
 
 ## 🖐 ハンズオン ④：探す
 
-**(1) エディタで 2 つファイルを追加**（ハンズオン③の `memo.txt` に加えて）
-
-- `~/cli-handson/task.txt`　中身：`TODO: 後で書く`
-- `~/cli-handson/greeting.txt`　中身：`Hello again`
-
-**(2) ターミナルで探してみる**
+ハンズオン③で作った `memo.txt` に加えて、2つファイルを追加：
 
 ```bash
 cd ~/cli-handson
+echo "TODO: write later"  > task.txt
+echo "Hello again"        > greeting.txt
+```
 
+そして、探す：
+
+```bash
 # 名前で探す（find は名前パターンを書く）
 find . -name "memo.txt"
 find . -name "task.txt"
@@ -540,19 +589,73 @@ grep -r "TODO" .
 
 ---
 
-## 環境変数 = PC 全体の「設定メモ」
+## 環境変数とは
 
-代表例：**`PATH`**
-= "コマンドを探しに行く場所のリスト"
+**実行中のプログラム同士で共有される「名前 = 値」のメモ**
 
-つまり、`ls` と打ったとき、シェルはこのリストに書かれたフォルダを順に見て、`ls` という名前の実行ファイルを探す。
+```bash
+echo $HOME      # /Users/yuki     ← ホームの場所
+echo $SHELL     # /bin/zsh        ← 使っているシェル
+echo $LANG      # ja_JP.UTF-8     ← 言語設定
+```
 
-**なぜ API キーは環境変数に入れるのか？**
+**スコープ（有効範囲）がある：**
+- このターミナルだけ（閉じたら消える）
+- このユーザーがログイン中ずっと（`.bashrc` / `.zshrc` で設定）
+- システム全体（管理者権限が必要）
 
-- コードに直接書く → Git に push した瞬間に**世界に漏れる**
-- 環境変数に入れる → コードはキーを知らずに使える
+→ 細かい使い分けは応用編で。今日は「**設定値を渡す箱**」くらいの理解で OK。
 
-→ **セキュリティの基本** であり、すべてのAIサービスのキーはここに入る。
+> **慣習：環境変数は大文字＋アンダースコアで命名**（例：`ANTHROPIC_API_KEY`）
+> 小文字や camelCase は使わない。Unix 系の暗黙ルール。
+
+---
+
+## 環境変数の2種類
+
+**(1) 予約変数 — システムが定義・使う**
+
+| 変数 | 意味 |
+|---|---|
+| `PATH` | コマンドを探しに行く場所のリスト |
+| `HOME` | あなたのホームディレクトリ |
+| `USER` | 今ログインしているユーザー名 |
+| `SHELL` | 使っているシェル（bash / zsh など） |
+| `PWD` | 現在のカレントディレクトリ |
+| `LANG` | 言語・文字コード設定 |
+
+**(2) ユーザ変数 — 自分で作る・入れる**
+
+| 変数 | 用途 |
+|---|---|
+| `ANTHROPIC_API_KEY` | Claude API キー |
+| `OPENAI_API_KEY` | OpenAI API キー |
+| `EDITOR` | デフォルトのエディタ |
+| `MY_DB_PASSWORD` | 各種シークレット |
+
+---
+
+## なぜ API キーは「環境変数」に入れるのか
+
+**(1) コードに直接書くと、Git に push した瞬間に世界に漏れる**
+公開リポジトリにキーが流出 → 第三者に悪用 → 翌朝**多額の課金請求**が来る（実話）
+
+**(2) 環境ごとに違うキーを使える**
+開発環境ではテストキー、本番では本番キー、と切り替えが楽
+
+**(3) コード自体は「キーを知らない」状態で動かせる**
+チームで同じコードを共有しても、各自のキーで実行できる
+
+```python
+# 悪い: コードに直書き ❌
+key = "sk-ant-abc123..."
+
+# 良い: 環境変数から読む ✅
+import os
+key = os.environ["ANTHROPIC_API_KEY"]
+```
+
+→ **AI 時代のセキュリティの基本**。Claude / OpenAI / Gemini など全てこの形。
 
 ---
 
@@ -588,54 +691,65 @@ echo $PATH
 <p class="eyebrow">SECTION</p>
 <div class="section-number">06</div>
 
-# プログラムを書いて動かす
+# Claude Code を自分で動かす
 ## ★ 今日のゴール
 
 ---
 
-## "自分で書く → 自分で動かす" のループ
+## ここまでの 50 分の意味
 
-今日のゴール：**このループを 1 回でも自分の手で回す**
+ここまで学んだこと：
+- ターミナルを開く・コマンドの文法・`--help`
+- ファイル / ディレクトリ操作（`cd` `ls` `mkdir` `cp` `mv` `rm`）
+- `find` と `grep` で探す
+- 環境変数 `PATH`
 
-これさえできれば、明日からは：
-- AI が書いてくれたスクリプトを **動かせる**
-- 動かしたスクリプトを **改造できる**
+これらは全て、Claude Code が**裏でやっていること**そのもの。
 
-→ つまり、**AI に業務を本当に任せられる**ようになる。
+<div class="callout">
 
----
+つまり、あなたは今、Claude Code の中で**何が起きているか見える**ようになった。
+あとは、自分で起動して、自然言語で頼むだけ。
 
-## 🖐 ハンズオン ⑥-A：`hello.py` を**書く**
-
-テキストエディタ（メモ帳でOK）を開いて、以下を入力：
-
-```python
-# hello.py
-name = "Minedia"
-print(f"Hello, {name}!")
-```
-
-保存先：`~/cli-handson/hello.py`
-
-保存できたら、ターミナルへ戻る。
+</div>
 
 ---
 
-## 🖐 ハンズオン ⑥-B：ターミナルで**実行**
+## 🖐 ハンズオン ⑥-A：Claude Code を**起動する**
+
+ターミナルで作業フォルダに移動して、`claude` と打つ：
 
 ```bash
 cd ~/cli-handson
-python hello.py
+claude
 ```
 
-これが表示されたら成功：
+→ Claude Code のプロンプトが立ち上がる。
 
-```
-Hello, Minedia!
-```
+「カレントディレクトリ」「ここで起動 = ここを見てくれる」が体感できる。
+だから「`cd` してから起動」が大事。
 
-**Mac で `python` がない場合**：`python3 hello.py` を試す。
-**Windows で動かない場合**：Git Bash を一度閉じて、開き直してから再試行（`PATH` が反映されていない可能性）。
+---
+
+## 🖐 ハンズオン ⑥-B：自然言語で**頼む**
+
+例えば、こう頼んでみる：
+
+> 「このフォルダのファイル一覧を見て、それぞれ何が書いてあるか1行で要約して」
+
+裏で Claude Code が実行するもの（あなたが今日学んだコマンド達）：
+- `ls` でファイル一覧
+- `cat` でファイルの中身
+- `find` / `grep` で必要に応じて検索
+
+<div class="callout">
+
+**AI に頼んだコマンドが、自分の目で追える**。
+これが「AIに業務を任せられる」状態。
+
+</div>
+
+---
 
 ---
 
@@ -687,75 +801,71 @@ Hello, Minedia!
 
 ## デモ ① — 100 枚の画像を一括リサイズ
 
-**Mac**
+**Mac は標準ツールで一発：**
 ```bash
 sips -Z 800 *.jpg
 ```
 
-**Windows（Git Bash + ImageMagick）**
+**Windows は ImageMagick などのツールが必要：**
 ```bash
 magick mogrify -resize 800x *.jpg
 ```
 
-<div class="callout">
-
-これ、GUI でやったら **2 時間**。CLI で **3 秒**。
-
-</div>
+> 注：Windows には ImageMagick は標準で入っていません。
+> でも大丈夫 — **Claude Code に「画像を800px幅にリサイズして」と頼めば、
+> 環境に合った方法を自分で選んで実行してくれます**。
+> あなたは「CLI でこういうことができる」と知っているだけで十分。
 
 <!--
 講師ノート:
 - ここで初めて `*` が出てくる。1秒だけ「これはワイルドカードという便利な記号で、"全部"の意味です。次回詳しくやります」と触れる。深入りしない。
 - 受講者は打たない（見せるだけ）。
+- Windows ユーザーが「ImageMagickないと言われた...」と詰まらないよう、「Claude Code に任せれば良い」を強調する。
 -->
 
 ---
 
-## デモ ② — 連番ファイルを 1 コマンドで作る
+## デモ ② — 「どこのフォルダが重い？」を一発で
+
+「PCの容量がカツカツ...どこが重いの？」を、GUI で開いて右クリック→プロパティを繰り返す代わりに：
 
 ```bash
-for i in {1..100}; do touch "report_$(printf "%03d" $i).txt"; done
+du -sh ~/Downloads ~/Documents ~/Desktop
 ```
 
-→ `report_001.txt` 〜 `report_100.txt` が **一瞬で**生まれる。
+→ 各フォルダの合計サイズが**一覧でズラッ**と表示される。
 
-報告書テンプレ、テストデータ、研修用ダミーファイル...
-**「100個作って」は CLI が一番得意な仕事**。
+おまけ：「先週もらった資料、どこ行った？」も 1 行：
+
+```bash
+find ~/Downloads ~/Desktop -mtime -7
+```
+
+→ 7 日以内に変更されたファイルだけが出てくる。Spotlight よりピンポイント。
 
 ---
 
-## デモ ③ — Excel / CSV を **1秒で集計**
+## デモ ③ — 散らかった「あのファイル」を一発で探す
 
-Excel で「地域ごとの売上合計」を出す → ピボットテーブル作って...で 5 分。
-CLI なら 5 行のスクリプトで一瞬：
+Biz の現場あるある：
+> 「先月の請求書、Downloadsか Desktopか、どこに保存したっけ...」
 
-```python
-# sales_summary.py
-import pandas as pd
-
-df = pd.read_csv('sales.csv')
-print(df.groupby('region')['amount'].sum())
-print(f"\n合計: {df['amount'].sum():,.0f} 円")
-```
+CLI なら 1 行：
 
 ```bash
-python sales_summary.py
+find ~/Downloads ~/Desktop ~/Documents -name "請求書*"
 ```
 
-→ 結果が即表示。**100行でも100万行でも同じ速度**。
+→ 全フォルダ横断で、見つかった場所がパスごと一覧表示される。
+**Spotlight や エクスプローラー検索より速い**。
+ファイル名のパターンを変えれば、なんでも探せる。
 
 <div class="callout">
 
-しかも、このスクリプトは Claude Code に「`sales.csv` を地域ごとに集計して」と頼めば**自動生成**される。
-「**AI が書く → 自分で動かす**」の典型ケース。今日学んだことで、これが**できる側**になった。
+これも、Claude Code に「先月の請求書のPDFを Downloads/Desktop から探して」と頼めば、
+裏で同じ `find` が走る。**自分で打てるし、AIに頼める**。
 
 </div>
-
-<!--
-講師ノート:
-- 実演する場合、事前に sales.csv（regionとamountを含む）を用意しておく。データはダミーで OK。
-- Excel と並べて見せると説得力UP（Excelでピボット作る時間 vs python 一行）。
--->
 
 
 ---
@@ -782,6 +892,52 @@ python sales_summary.py
 
 ---
 
+## デモ ⑤ — APIキー × Python で LLM を呼ぶ
+
+今日学んだ「**環境変数**」と「**プログラム実行**」を組み合わせた、Claude Code の **裏側の最小構成**。
+
+**1. APIキーを環境変数にセット**
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+**2. 数行の Python で Claude を呼ぶ**
+```python
+# call_claude.py
+import os, anthropic
+
+client  = anthropic.Anthropic()                  # 環境変数のキーを自動で使う
+prompt  = "CLI の利点を1文で"
+res     = client.messages.create(
+    model    = "claude-sonnet-4-6",
+    messages = [{"role": "user", "content": prompt}],
+)
+print(res.content[0].text)
+```
+
+**3. 実行**
+```bash
+pip install anthropic
+python call_claude.py
+```
+
+<div class="callout">
+
+これが Claude Code の裏で動いている**最小単位**。
+ここから先は、自分のスクリプトに **AI を部品として組み込める** 世界。
+
+</div>
+
+<!--
+講師ノート:
+- 受講者は打たない（見せるだけ）。Python不要で講座を組んでいるが、応用デモはOK。
+- 事前に anthropic ライブラリインストール、APIキー取得済みの講師Mac環境で実演。
+- 「環境変数とプログラム実行が、両方今日学んだ。それを組み合わせるだけで、AIを呼べる」を強調。
+-->
+
+
+---
+
 <!-- _class: section -->
 
 <p class="eyebrow">SECTION</p>
@@ -791,29 +947,8 @@ python sales_summary.py
 
 ---
 
-## 明日からの 3 ステップ
-
-**1. 業務で「5 回に 1 回」、CLI で解決できないか考える**
-　 → 100ファイルのリネーム、定型レポート、ファイル整理。これ全部 CLI 案件。
-
-**2. Claude Code を業務で使ってみる**
-　 → 今日のCLI知識があれば、Claude Code の操作・出力が読める。
-
-**3. 困ったら社内 Slack `#ai` で聞く**
-　 → 「とりあえず打ってみたけど動かない」が一番上達する。
-
-<div class="callout">
-
-CLI は "覚える" ものではなく "慣れる" もの。
-**今日のあと、明日も 1 行だけでも打つこと**。
-
-</div>
-
----
-
 <!-- _class: closing -->
 
 # ありがとうございました
 
-質問・要望は社内 Slack **`#ai`** まで。
 資料リポジトリ：**github.com/minedia/cli-basics**

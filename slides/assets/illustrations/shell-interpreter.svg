@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" font-family="'Noto Sans JP', sans-serif">
+  <defs>
+    <linearGradient id="ciGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#959595"/>
+    </marker>
+  </defs>
+
+  <!-- Person -->
+  <g transform="translate(110,130)">
+    <circle cx="0" cy="-30" r="22" fill="#3C3C3C"/>
+    <path d="M-30,40 Q-30,-5 0,-5 Q30,-5 30,40 Z" fill="#3C3C3C"/>
+    <text x="0" y="80" font-size="16" font-weight="700" fill="#3C3C3C" text-anchor="middle">あなた</text>
+    <text x="0" y="100" font-size="11" fill="#6C6C6C" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">USER</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g>
+    <line x1="180" y1="120" x2="320" y2="120" stroke="#959595" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="250" y="105" font-size="12" fill="#6C6C6C" text-anchor="middle" font-family="'Sometype Mono', monospace">ls -la</text>
+    <text x="250" y="140" font-size="10" fill="#959595" text-anchor="middle">コマンドを打つ</text>
+  </g>
+
+  <!-- Shell -->
+  <g transform="translate(420,130)">
+    <rect x="-70" y="-55" width="140" height="110" rx="6" fill="url(#ciGrad)"/>
+    <text x="0" y="-15" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">シェル</text>
+    <text x="0" y="15" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.05em" opacity="0.9">通訳</text>
+    <text x="0" y="40" font-size="10" fill="#FFFFFF" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em" opacity="0.85">SHELL</text>
+    <text x="0" y="85" font-size="11" fill="#6C6C6C" text-anchor="middle">bash / zsh</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g>
+    <line x1="520" y1="120" x2="660" y2="120" stroke="#959595" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="590" y="105" font-size="11" fill="#6C6C6C" text-anchor="middle" font-family="'Sometype Mono', monospace">syscall</text>
+    <text x="590" y="140" font-size="10" fill="#959595" text-anchor="middle">PCに伝える</text>
+  </g>
+
+  <!-- Computer -->
+  <g transform="translate(770,130)">
+    <rect x="-45" y="-50" width="90" height="60" fill="#F2F2F2" stroke="#3C3C3C" stroke-width="2" rx="3"/>
+    <rect x="-45" y="-50" width="90" height="14" fill="#3C3C3C"/>
+    <circle cx="-36" cy="-43" r="2" fill="#EC3737"/>
+    <circle cx="-29" cy="-43" r="2" fill="#F5AA77"/>
+    <line x1="-30" y1="-20" x2="30" y2="-20" stroke="#959595" stroke-width="1"/>
+    <line x1="-30" y1="-10" x2="20" y2="-10" stroke="#959595" stroke-width="1"/>
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#959595" stroke-width="1"/>
+    <rect x="-25" y="15" width="50" height="6" fill="#D1D1D1" rx="2"/>
+    <text x="0" y="55" font-size="16" font-weight="700" fill="#3C3C3C" text-anchor="middle">PC</text>
+    <text x="0" y="75" font-size="11" fill="#6C6C6C" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">OS / KERNEL</text>
+  </g>
+</svg>

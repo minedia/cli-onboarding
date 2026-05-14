@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" font-family="'Noto Sans JP', sans-serif">
+  <defs>
+    <linearGradient id="ciGradTB" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== Left: binary ===== -->
+  <g transform="translate(20,30)">
+    <!-- Container -->
+    <rect x="0" y="0" width="430" height="300" fill="#3C3C3C" rx="6"/>
+    <rect x="0" y="0" width="430" height="34" fill="#1A1A1A" rx="6"/>
+    <rect x="0" y="24" width="430" height="10" fill="#1A1A1A"/>
+    <text x="20" y="22" font-size="13" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">binary</text>
+    <text x="410" y="22" font-size="11" fill="#959595" text-anchor="end" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">旧時代</text>
+
+    <!-- File icons -->
+    <g transform="translate(35,60)">
+      <!-- docx -->
+      <g transform="translate(0,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#2A2A2A" stroke="#6C6C6C" stroke-width="1.5" rx="4"/>
+        <text x="35" y="50" font-size="13" font-weight="700" fill="#959595" text-anchor="middle" font-family="'Sometype Mono', monospace">.docx</text>
+      </g>
+      <!-- xlsx -->
+      <g transform="translate(85,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#2A2A2A" stroke="#6C6C6C" stroke-width="1.5" rx="4"/>
+        <text x="35" y="50" font-size="13" font-weight="700" fill="#959595" text-anchor="middle" font-family="'Sometype Mono', monospace">.xlsx</text>
+      </g>
+      <!-- pptx -->
+      <g transform="translate(170,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#2A2A2A" stroke="#6C6C6C" stroke-width="1.5" rx="4"/>
+        <text x="35" y="50" font-size="13" font-weight="700" fill="#959595" text-anchor="middle" font-family="'Sometype Mono', monospace">.pptx</text>
+      </g>
+      <!-- pdf -->
+      <g transform="translate(255,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#2A2A2A" stroke="#6C6C6C" stroke-width="1.5" rx="4"/>
+        <text x="35" y="50" font-size="13" font-weight="700" fill="#959595" text-anchor="middle" font-family="'Sometype Mono', monospace">.pdf</text>
+      </g>
+      <!-- Lock icon overlay -->
+      <g transform="translate(290,8)">
+        <rect x="0" y="6" width="22" height="18" rx="3" fill="#EC3737"/>
+        <path d="M4,6 L4,3 a7,7 0 0,1 14,0 L18,6" stroke="#EC3737" stroke-width="2.5" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Properties -->
+    <g font-size="12" fill="#D1D1D1" font-family="'Noto Sans JP', sans-serif">
+      <text x="20" y="180">✕ 専用アプリがないと開けない</text>
+      <text x="20" y="205">✕ AI が直接編集できない</text>
+      <text x="20" y="230">✕ Git で差分が見えない</text>
+      <text x="20" y="255">✕ CLI ですぐ処理できない</text>
+    </g>
+
+    <text x="215" y="290" font-size="14" font-weight="700" fill="#959595" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">AI と相性 ✕</text>
+  </g>
+
+  <!-- Center divider -->
+  <text x="470" y="190" font-size="22" font-weight="700" fill="#D1D1D1" text-anchor="middle" font-family="'Sometype Mono', monospace">vs</text>
+
+  <!-- ===== Right: text ===== -->
+  <g transform="translate(490,30)">
+    <!-- Container -->
+    <rect x="0" y="0" width="430" height="300" fill="#FFFFFF" stroke="#D1D1D1" stroke-width="2" rx="6"/>
+    <rect x="0" y="0" width="430" height="34" fill="url(#ciGradTB)" rx="6"/>
+    <rect x="0" y="24" width="430" height="10" fill="url(#ciGradTB)"/>
+    <text x="20" y="22" font-size="13" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">text</text>
+    <text x="410" y="22" font-size="11" fill="#FFFFFF" text-anchor="end" font-family="'Sometype Mono', monospace" letter-spacing="0.05em" opacity="0.95">AI 時代</text>
+
+    <!-- File icons with content visible -->
+    <g transform="translate(35,60)">
+      <!-- md -->
+      <g transform="translate(0,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#F2F2F2" stroke="#3C3C3C" stroke-width="1.5" rx="4"/>
+        <line x1="8" y1="20" x2="56" y2="20" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="30" x2="46" y2="30" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="40" x2="56" y2="40" stroke="#959595" stroke-width="1"/>
+        <text x="35" y="72" font-size="13" font-weight="700" fill="#EC3737" text-anchor="middle" font-family="'Sometype Mono', monospace">.md</text>
+      </g>
+      <!-- csv -->
+      <g transform="translate(85,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#F2F2F2" stroke="#3C3C3C" stroke-width="1.5" rx="4"/>
+        <line x1="8" y1="20" x2="56" y2="20" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="30" x2="46" y2="30" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="40" x2="56" y2="40" stroke="#959595" stroke-width="1"/>
+        <text x="35" y="72" font-size="13" font-weight="700" fill="#EC3737" text-anchor="middle" font-family="'Sometype Mono', monospace">.csv</text>
+      </g>
+      <!-- json -->
+      <g transform="translate(170,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#F2F2F2" stroke="#3C3C3C" stroke-width="1.5" rx="4"/>
+        <line x1="8" y1="20" x2="56" y2="20" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="30" x2="46" y2="30" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="40" x2="56" y2="40" stroke="#959595" stroke-width="1"/>
+        <text x="35" y="72" font-size="12" font-weight="700" fill="#EC3737" text-anchor="middle" font-family="'Sometype Mono', monospace">.json</text>
+      </g>
+      <!-- yml -->
+      <g transform="translate(255,0)">
+        <rect x="0" y="0" width="70" height="86" fill="#F2F2F2" stroke="#3C3C3C" stroke-width="1.5" rx="4"/>
+        <line x1="8" y1="20" x2="56" y2="20" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="30" x2="46" y2="30" stroke="#959595" stroke-width="1"/>
+        <line x1="8" y1="40" x2="56" y2="40" stroke="#959595" stroke-width="1"/>
+        <text x="35" y="72" font-size="13" font-weight="700" fill="#EC3737" text-anchor="middle" font-family="'Sometype Mono', monospace">.yml</text>
+      </g>
+    </g>
+
+    <!-- Properties -->
+    <g font-size="12" fill="#4D4D4D" font-family="'Noto Sans JP', sans-serif">
+      <text x="20" y="180">◯ 中身がそのまま読める</text>
+      <text x="20" y="205">◯ AI が直接読み書きできる</text>
+      <text x="20" y="230">◯ Git で 1 行単位の差分</text>
+      <text x="20" y="255">◯ <tspan font-family="'Sometype Mono', monospace">grep</tspan> / <tspan font-family="'Sometype Mono', monospace">cat</tspan> ですぐ処理</text>
+    </g>
+
+    <text x="215" y="290" font-size="14" font-weight="700" fill="#EC3737" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">AI と相性 ◎</text>
+  </g>
+</svg>

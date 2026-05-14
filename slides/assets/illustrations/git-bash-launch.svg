@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" font-family="'Noto Sans JP', sans-serif">
+  <defs>
+    <linearGradient id="ciGradLaunch" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+    <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#959595"/>
+    </marker>
+  </defs>
+
+  <!-- ============ 方法 1: スタートメニュー検索 ============ -->
+  <g>
+    <!-- header -->
+    <rect x="20" y="20" width="900" height="36" rx="3" fill="url(#ciGradLaunch)"/>
+    <text x="40" y="44" font-size="14" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">METHOD 1</text>
+    <text x="140" y="44" font-size="14" font-weight="700" fill="#FFFFFF">スタートメニュー検索</text>
+
+    <!-- Step 1: Windows key -->
+    <g transform="translate(40,80)">
+      <text x="0" y="-5" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">STEP 1</text>
+      <rect x="0" y="0" width="160" height="80" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="2" rx="4"/>
+      <!-- Win key icon -->
+      <g transform="translate(80,42)">
+        <rect x="-22" y="-15" width="20" height="14" fill="#3C3C3C"/>
+        <rect x="2" y="-15" width="20" height="14" fill="#3C3C3C"/>
+        <rect x="-22" y="2" width="20" height="14" fill="#3C3C3C"/>
+        <rect x="2" y="2" width="20" height="14" fill="#3C3C3C"/>
+      </g>
+      <text x="80" y="72" font-size="12" fill="#3C3C3C" text-anchor="middle">Windows キーを押す</text>
+    </g>
+
+    <line x1="208" y1="120" x2="248" y2="120" stroke="#959595" stroke-width="2" marker-end="url(#arrowR)"/>
+
+    <!-- Step 2: type git bash -->
+    <g transform="translate(258,80)">
+      <text x="0" y="-5" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">STEP 2</text>
+      <rect x="0" y="0" width="240" height="80" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="2" rx="4"/>
+      <!-- search box -->
+      <rect x="20" y="18" width="200" height="28" fill="#F2F2F2" stroke="#959595" stroke-width="1" rx="14"/>
+      <text x="32" y="37" font-size="13" fill="#3C3C3C" font-family="'Sometype Mono', monospace">git bash</text>
+      <rect x="106" y="22" width="2" height="20" fill="#3C3C3C">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
+      <text x="120" y="68" font-size="12" fill="#3C3C3C" text-anchor="middle">「git bash」と入力</text>
+    </g>
+
+    <line x1="506" y1="120" x2="546" y2="120" stroke="#959595" stroke-width="2" marker-end="url(#arrowR)"/>
+
+    <!-- Step 3: select Git Bash result -->
+    <g transform="translate(556,80)">
+      <text x="0" y="-5" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">STEP 3</text>
+      <rect x="0" y="0" width="340" height="80" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="2" rx="4"/>
+      <!-- result row (selected) -->
+      <rect x="10" y="10" width="320" height="32" fill="#1A1A1A" rx="3"/>
+      <text x="22" y="32" font-size="14" font-weight="700" fill="#F5AA77" font-family="'Sometype Mono', monospace">$</text>
+      <text x="42" y="32" font-size="13" fill="#FFFFFF">Git Bash</text>
+      <text x="170" y="32" font-size="11" fill="#959595" font-family="'Sometype Mono', monospace">アプリ</text>
+      <text x="320" y="32" font-size="11" fill="#F5AA77" text-anchor="end" font-family="'Sometype Mono', monospace">Enter ⏎</text>
+      <text x="170" y="68" font-size="12" fill="#3C3C3C" text-anchor="middle">"Git Bash" が出たら Enter</text>
+    </g>
+  </g>
+
+  <!-- ============ 方法 2: 右クリック ============ -->
+  <g transform="translate(0,210)">
+    <!-- header -->
+    <rect x="20" y="0" width="900" height="36" rx="3" fill="#3C3C3C"/>
+    <text x="40" y="24" font-size="14" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">METHOD 2</text>
+    <text x="140" y="24" font-size="14" font-weight="700" fill="#FFFFFF">Shift + 右クリック → "Git Bash Here"</text>
+    <text x="900" y="24" font-size="11" fill="#D1D1D1" text-anchor="end" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">うまく出ない人向け</text>
+
+    <!-- Visual: folder + right-click context menu -->
+    <g transform="translate(40,60)">
+      <!-- folder/desktop area -->
+      <rect x="0" y="0" width="400" height="100" fill="#F2F2F2" stroke="#D1D1D1" stroke-width="1.5" rx="3"/>
+      <!-- folder icons -->
+      <g transform="translate(30,30)">
+        <path d="M0,0 L0,30 L40,30 L40,5 L20,5 L15,0 Z" fill="#F5AA77" stroke="#3C3C3C" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(90,30)">
+        <path d="M0,0 L0,30 L40,30 L40,5 L20,5 L15,0 Z" fill="#F5AA77" stroke="#3C3C3C" stroke-width="1.5"/>
+      </g>
+      <text x="200" y="80" font-size="11" fill="#6C6C6C" text-anchor="middle">デスクトップ／フォルダで Shift + 右クリック</text>
+    </g>
+
+    <line x1="450" y1="110" x2="490" y2="110" stroke="#959595" stroke-width="2" marker-end="url(#arrowR)"/>
+
+    <!-- context menu -->
+    <g transform="translate(500,55)">
+      <rect x="0" y="0" width="360" height="110" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5" rx="3"/>
+      <!-- menu items -->
+      <text x="16" y="22" font-size="13" fill="#6C6C6C">表示(V)</text>
+      <text x="16" y="44" font-size="13" fill="#6C6C6C">並べ替え(O)</text>
+      <line x1="0" y1="56" x2="360" y2="56" stroke="#E6E6E6"/>
+      <!-- Highlighted: Git Bash Here -->
+      <rect x="0" y="62" width="360" height="26" fill="url(#ciGradLaunch)"/>
+      <text x="16" y="80" font-size="13" font-weight="700" fill="#FFFFFF">Git Bash Here</text>
+      <text x="344" y="80" font-size="11" fill="#FFFFFF" text-anchor="end" font-family="'Sometype Mono', monospace">← これ</text>
+      <line x1="0" y1="92" x2="360" y2="92" stroke="#E6E6E6"/>
+      <text x="16" y="106" font-size="13" fill="#6C6C6C">新規作成(W)</text>
+    </g>
+  </g>
+
+  <!-- Caption -->
+  <text x="470" y="365" font-size="13" font-weight="700" fill="#3C3C3C" text-anchor="middle">⚠️ PowerShell や cmd ではなく、必ず "Git Bash" を選ぶ</text>
+</svg>
