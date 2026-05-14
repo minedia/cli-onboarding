@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" font-family="'Sometype Mono', monospace">
+  <defs>
+    <linearGradient id="ciGradAnatomy" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Command line -->
+  <g font-size="56" font-weight="700">
+    <text x="180" y="80" fill="#EC3737">ls</text>
+    <text x="280" y="80" fill="#3C3C3C">-la</text>
+    <text x="420" y="80" fill="#3C3C3C">/Users</text>
+  </g>
+
+  <!-- Underline brackets -->
+  <g stroke-width="2.5" fill="none">
+    <!-- ls bracket -->
+    <path d="M170,98 L170,108 L256,108 L256,98" stroke="#EC3737"/>
+    <line x1="213" y1="108" x2="213" y2="122" stroke="#EC3737"/>
+    <!-- -la bracket -->
+    <path d="M270,98 L270,108 L390,108 L390,98" stroke="#6C6C6C"/>
+    <line x1="330" y1="108" x2="330" y2="122" stroke="#6C6C6C"/>
+    <!-- /Users bracket -->
+    <path d="M410,98 L410,108 L600,108 L600,98" stroke="#6C6C6C"/>
+    <line x1="505" y1="108" x2="505" y2="122" stroke="#6C6C6C"/>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="'Noto Sans JP', sans-serif">
+    <!-- ls label -->
+    <g>
+      <rect x="138" y="135" width="150" height="34" rx="3" fill="#EC3737"/>
+      <text x="213" y="158" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">コマンド名</text>
+      <text x="213" y="195" font-size="13" fill="#4D4D4D" text-anchor="middle">何をするか</text>
+      <text x="213" y="215" font-size="11" fill="#959595" text-anchor="middle">"一覧表示せよ"</text>
+    </g>
+
+    <!-- -la label -->
+    <g>
+      <rect x="265" y="135" width="130" height="34" rx="3" fill="#F2F2F2" stroke="#6C6C6C" stroke-width="1.5"/>
+      <text x="330" y="158" font-size="16" font-weight="700" fill="#3C3C3C" text-anchor="middle">オプション</text>
+      <text x="330" y="195" font-size="13" fill="#4D4D4D" text-anchor="middle">どう表示するか</text>
+      <text x="330" y="215" font-size="11" fill="#959595" text-anchor="middle">"詳細＋隠しも"</text>
+    </g>
+
+    <!-- /Users label -->
+    <g>
+      <rect x="440" y="135" width="130" height="34" rx="3" fill="#F2F2F2" stroke="#6C6C6C" stroke-width="1.5"/>
+      <text x="505" y="158" font-size="16" font-weight="700" fill="#3C3C3C" text-anchor="middle">引数</text>
+      <text x="505" y="195" font-size="13" fill="#4D4D4D" text-anchor="middle">どこの</text>
+      <text x="505" y="215" font-size="11" fill="#959595" text-anchor="middle">"/Users フォルダ"</text>
+    </g>
+  </g>
+
+  <!-- Footer note: gradient line + caption -->
+  <rect x="180" y="248" width="420" height="3" fill="url(#ciGradAnatomy)"/>
+  <text x="390" y="271" font-size="13" font-family="'Noto Sans JP', sans-serif" fill="#6C6C6C" text-anchor="middle">スペース区切り / 一番左がコマンド / 右側はぜんぶ追加指示</text>
+</svg>

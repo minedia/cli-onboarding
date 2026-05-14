@@ -416,7 +416,7 @@ section.dark h3 {
 section.dark p,
 section.dark li,
 section.dark td {
-  color: var(--neutral-200);
+  color: #E6E6E6;
 }
 
 section.dark th {
@@ -439,16 +439,17 @@ section.dark code {
 
 section.dark pre {
   background: #1A1A1A;
-  color: var(--neutral-100);
+  color: #F0F0F0;
   border-left-color: var(--ci-grad-end);
 }
 
-section.dark pre code {
-  color: var(--neutral-100);
+/* dark スライド内コード — まず全テキストを明るい色に確定させる */
+section.dark pre code,
+section.dark pre code * {
+  color: #F0F0F0;
 }
 
-/* dark スライド内 — syntax highlight (highlight.js) 上書き
-   Minedia design system のトーンと整合する高コントラスト配色 */
+/* その上で、minedia トーンのアクセント色だけ上書き */
 section.dark pre code .hljs-keyword,
 section.dark pre code .hljs-built_in,
 section.dark pre code .hljs-type,
@@ -465,7 +466,7 @@ section.dark pre code .hljs-title {
 
 section.dark pre code .hljs-comment,
 section.dark pre code .hljs-meta {
-  color: #B5B5B5;
+  color: #C8C8C8;
   font-style: italic;
 }
 
@@ -473,16 +474,6 @@ section.dark pre code .hljs-number,
 section.dark pre code .hljs-literal,
 section.dark pre code .hljs-symbol {
   color: var(--ci-grad-end);
-}
-
-section.dark pre code .hljs-variable,
-section.dark pre code .hljs-params {
-  color: var(--neutral-100);
-}
-
-section.dark pre code .hljs-operator,
-section.dark pre code .hljs-punctuation {
-  color: var(--neutral-200);
 }
 
 section.dark strong {
@@ -606,6 +597,34 @@ section.dark .callout {
 /* 中央寄せヘルパー */
 .center {
   text-align: center;
+}
+
+/* Illustration helpers */
+.illustration {
+  display: block;
+  margin: 0.5em auto;
+  max-width: 80%;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+}
+
+.illustration-wide {
+  display: block;
+  margin: 0.5em auto;
+  max-width: 92%;
+  max-height: 320px;
+  width: auto;
+  height: auto;
+}
+
+.illustration-small {
+  display: block;
+  margin: 0.4em auto;
+  max-width: 60%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
 }
 
 /* Marp 既定の header/footer は使わない */

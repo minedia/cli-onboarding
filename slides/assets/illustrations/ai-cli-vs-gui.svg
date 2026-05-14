@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" font-family="'Noto Sans JP', sans-serif">
+  <defs>
+    <linearGradient id="ciGradAI" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Top labels: same request -->
+  <g>
+    <rect x="240" y="20" width="420" height="40" rx="3" fill="#F7F3EF"/>
+    <text x="450" y="46" font-size="16" font-weight="500" fill="#3C3C3C" text-anchor="middle">「TODOを全部探して」と AI に頼んだ場合</text>
+  </g>
+
+  <!-- Left: CLI環境 -->
+  <g>
+    <rect x="40" y="90" width="380" height="240" fill="#FAFAFA" stroke="#D1D1D1" stroke-width="2" rx="6"/>
+    <rect x="40" y="90" width="380" height="34" fill="url(#ciGradAI)" rx="6"/>
+    <rect x="40" y="115" width="380" height="9" fill="url(#ciGradAI)"/>
+    <text x="60" y="113" font-size="13" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">CLI 環境</text>
+    <text x="395" y="113" font-size="11" fill="#FFFFFF" text-anchor="end" font-family="'Sometype Mono', monospace" letter-spacing="0.05em" opacity="0.9">あなたが使える側</text>
+
+    <!-- Steps -->
+    <g font-family="'Sometype Mono', monospace">
+      <text x="60" y="155" font-size="14" fill="#EC3737" font-weight="700">1.</text>
+      <text x="86" y="155" font-size="14" fill="#3C3C3C">grep -r "TODO" .</text>
+      <text x="86" y="172" font-size="11" fill="#959595">→ 即実行、結果を読む</text>
+
+      <text x="60" y="210" font-size="14" fill="#EC3737" font-weight="700">2.</text>
+      <text x="86" y="210" font-size="14" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">結果を返す</text>
+    </g>
+
+    <!-- Stats -->
+    <g>
+      <line x1="60" y1="245" x2="400" y2="245" stroke="#E6E6E6" stroke-width="1"/>
+      <text x="60" y="275" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">TIME</text>
+      <text x="60" y="297" font-size="22" font-weight="700" fill="#EC3737" font-family="'Sometype Mono', monospace">0.5秒</text>
+
+      <text x="230" y="275" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">TOKENS</text>
+      <text x="230" y="297" font-size="22" font-weight="700" fill="#EC3737" font-family="'Sometype Mono', monospace">~1,000</text>
+    </g>
+  </g>
+
+  <!-- Right: GUI環境 -->
+  <g>
+    <rect x="480" y="90" width="380" height="240" fill="#FAFAFA" stroke="#D1D1D1" stroke-width="2" rx="6"/>
+    <rect x="480" y="90" width="380" height="34" fill="#3C3C3C" rx="6"/>
+    <rect x="480" y="115" width="380" height="9" fill="#3C3C3C"/>
+    <text x="500" y="113" font-size="13" font-weight="700" fill="#FFFFFF" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">GUI 環境</text>
+    <text x="835" y="113" font-size="11" fill="#D1D1D1" text-anchor="end" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">CLI が分からない</text>
+
+    <!-- Steps -->
+    <g font-family="'Sometype Mono', monospace">
+      <text x="500" y="155" font-size="14" fill="#959595" font-weight="700">1.</text>
+      <text x="526" y="155" font-size="13" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">スクショ撮影</text>
+      <text x="500" y="180" font-size="14" fill="#959595" font-weight="700">2.</text>
+      <text x="526" y="180" font-size="13" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">画像を AI で解析</text>
+      <text x="500" y="205" font-size="14" fill="#959595" font-weight="700">3.</text>
+      <text x="526" y="205" font-size="13" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">座標を特定</text>
+      <text x="500" y="230" font-size="14" fill="#959595" font-weight="700">4.</text>
+      <text x="526" y="230" font-size="13" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">クリック → またスクショ → 繰り返し</text>
+    </g>
+
+    <!-- Stats -->
+    <g>
+      <line x1="500" y1="252" x2="840" y2="252" stroke="#E6E6E6" stroke-width="1"/>
+      <text x="500" y="282" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">TIME</text>
+      <text x="500" y="304" font-size="22" font-weight="700" fill="#3C3C3C" font-family="'Sometype Mono', monospace">数分〜十数分</text>
+
+      <text x="700" y="282" font-size="11" fill="#6C6C6C" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">TOKENS</text>
+      <text x="700" y="304" font-size="22" font-weight="700" fill="#3C3C3C" font-family="'Sometype Mono', monospace">数十万〜</text>
+    </g>
+  </g>
+
+  <!-- Caption -->
+  <text x="450" y="350" font-size="13" font-weight="700" fill="#3C3C3C" text-anchor="middle">CLI が使える環境 = AI の "燃費" と "賢さ" が桁違いに上がる</text>
+</svg>
