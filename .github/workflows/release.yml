@@ -107,9 +107,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.version }}
-          name: "CLI入門講座 スライド ${{ steps.meta.outputs.version }}"
+          name: "AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}"
           body: |
-            **CLI入門講座 スライド ${{ steps.meta.outputs.version }}**
+            **AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}**
 
             - **リリース日時**: ${{ steps.meta.outputs.date_jp }}
             - **コミット**: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})

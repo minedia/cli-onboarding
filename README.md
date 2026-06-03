@@ -1,6 +1,8 @@
-# CLI入門講座 〜黒い画面と仲良くなる60分〜
+# AI時代のコマンドライン入門 〜エンジニアだけの道具から、AIを使う全員の道具へ〜
 
 [![Build slides](https://github.com/minedia/cli-basics/actions/workflows/release.yml/badge.svg)](https://github.com/minedia/cli-basics/actions/workflows/release.yml)
+![Windows](https://img.shields.io/badge/Windows-Git_Bash-0078D4?logo=windows&logoColor=white)
+![macOS](https://img.shields.io/badge/macOS-Terminal-000000?logo=apple&logoColor=white)
 
 Minedia社員向け（社外公開可）の UNIX / CLI 入門ハンズオン講座の資料リポジトリです。
 
@@ -64,7 +66,7 @@ GUIだけでPCを使うのは、カーナビしか付いていない車で出張
 
 | 項目 | 内容 |
 |------|------|
-| 形式 | オンライン・ハンズオン |
+| 形式 | 対面・ハンズオン |
 | 所要時間 | 60分 |
 | 対象OS | Windows（Git Bash）/ macOS（zsh） |
 | 講師 | 松倉（株式会社マインディア CTO） |
@@ -124,13 +126,69 @@ GUIだけでPCを使うのは、カーナビしか付いていない車で出張
 
 ---
 
+## ローカルでビルドする
+
+### 前提
+
+- [Node.js](https://nodejs.org/) 18 以上
+
+### セットアップ
+
+```bash
+npm install -g @marp-team/marp-cli
+```
+
+### ビルドコマンド
+
+**⚠️ 必ず `slides/` ディレクトリに移動してから実行してください。**
+`cd` を忘れると `slides.md` も `themes/minedia.css` も見つからずエラーになります。
+
+```bash
+cd slides
+
+# PDF（印刷・配布用）
+marp slides.md \
+  --theme themes/minedia.css \
+  --pdf \
+  --allow-local-files \
+  -o cli-basics-slides.pdf
+
+# PPTX（PowerPoint 版）
+marp slides.md \
+  --theme themes/minedia.css \
+  --pptx \
+  --allow-local-files \
+  -o cli-basics-slides.pptx
+
+# HTML（ブラウザ版）
+marp slides.md \
+  --theme themes/minedia.css \
+  --html \
+  --allow-local-files \
+  -o cli-basics-slides.html
+
+# プレビュー（ライブリロード付き）
+marp slides.md --theme themes/minedia.css --server
+```
+
+> macOS / Linux ではシステムフォントで日本語が表示されます。
+> CI 環境（Ubuntu）では `fonts-noto-cjk` を自動インストールしています。
+
+### CI / 自動リリース
+
+| トリガー | 動作 |
+|---|---|
+| `main` への push（`slides/` 変更時） | PDF / PPTX / HTML をビルドしてアーティファクトに保存（30日間） |
+| `v*` タグを push | 上記ビルド ＋ GitHub Release を自動作成してファイルを添付 |
+
+---
+
 ## 制作環境
 
-- **作成ツール**: [Claude Code Desktop（Cowork mode）](https://www.anthropic.com/claude-code) + **Claude Opus 4.7**
+- **作成ツール**: [Claude Code](https://www.anthropic.com/claude-code)
 - **スライド**: [Marp](https://marp.app/) — Markdown → PDF / PPTX / HTML
-- **CI / 配布**: GitHub Actions（main push でビルド、`v*` タグで Release 自動生成）
+- **CI / 配布**: GitHub Actions
 - **デザイン**: Minedia Design System
-
 
 ---
 

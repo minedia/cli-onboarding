@@ -26,3 +26,6 @@ slides/*.html
 slides/*.pdf
 slides/*.pptx
 slides/*.png
+
+# Playwright MCP artifacts
+.playwright-mcp/

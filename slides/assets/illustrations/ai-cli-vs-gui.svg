@@ -9,7 +9,7 @@
   <!-- Top labels: same request -->
   <g>
     <rect x="240" y="20" width="420" height="40" rx="3" fill="#F7F3EF"/>
-    <text x="450" y="46" font-size="16" font-weight="500" fill="#3C3C3C" text-anchor="middle">「TODOを全部探して」と AI に頼んだ場合</text>
+    <text x="450" y="46" font-size="16" font-weight="500" fill="#3C3C3C" text-anchor="middle">「100個の CSV を集計してレポートにして」と AI に頼んだ場合</text>
   </g>
 
   <!-- Left: CLI環境 -->
@@ -23,11 +23,12 @@
     <!-- Steps -->
     <g font-family="'Sometype Mono', monospace">
       <text x="60" y="155" font-size="14" fill="#EC3737" font-weight="700">1.</text>
-      <text x="86" y="155" font-size="14" fill="#3C3C3C">grep -r "TODO" .</text>
-      <text x="86" y="172" font-size="11" fill="#959595">→ 即実行、結果を読む</text>
+      <text x="86" y="155" font-size="14" fill="#3C3C3C">find . -name "*.csv"</text>
+      <text x="86" y="172" font-size="11" fill="#959595">→ ファイル一覧を取得</text>
 
-      <text x="60" y="210" font-size="14" fill="#EC3737" font-weight="700">2.</text>
-      <text x="86" y="210" font-size="14" fill="#3C3C3C" font-family="'Noto Sans JP', sans-serif">結果を返す</text>
+      <text x="60" y="200" font-size="14" fill="#EC3737" font-weight="700">2.</text>
+      <text x="86" y="200" font-size="14" fill="#3C3C3C">python report.py</text>
+      <text x="86" y="217" font-size="11" fill="#959595">→ 集計・レポート生成</text>
     </g>
 
     <!-- Stats -->
@@ -73,5 +74,5 @@
   </g>
 
   <!-- Caption -->
-  <text x="450" y="350" font-size="13" font-weight="700" fill="#3C3C3C" text-anchor="middle">CLI が使える環境 = AI の "燃費" と "賢さ" が桁違いに上がる</text>
+  <text x="450" y="350" font-size="13" font-weight="700" fill="#3C3C3C" text-anchor="middle">CLI が使える環境では、AI が直接ファイルを読み書きしてコマンドを実行できる</text>
 </svg>

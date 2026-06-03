@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" font-family="'Noto Sans JP', 'Hiragino Sans', sans-serif">
+  <defs>
+    <linearGradient id="cuiGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#EC3737"/>
+      <stop offset="100%" stop-color="#F5AA77"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 1 top: 人間 / AI エージェント (full width) -->
+  <rect x="50" y="20" width="800" height="68" rx="4" fill="#FDE3DA" stroke="#EC3737" stroke-width="2"/>
+  <text x="450" y="56" font-size="18" font-weight="700" fill="#3C3C3C" text-anchor="middle">人間  /  AI エージェント</text>
+  <text x="450" y="78" font-size="11" fill="#6C5959" text-anchor="middle">どちらも使える</text>
+
+  <!-- Arrows down to GUI and CUI -->
+  <line x1="270" y1="88" x2="270" y2="108" stroke="#D1D1D1" stroke-width="2"/>
+  <polygon points="270,116 264,104 276,104" fill="#D1D1D1"/>
+  <line x1="630" y1="88" x2="630" y2="108" stroke="#EC3737" stroke-width="2"/>
+  <polygon points="630,116 624,104 636,104" fill="#EC3737"/>
+
+  <!-- Column headers -->
+  <text x="270" y="106" font-size="11" fill="#B0B0B0" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">GUIの世界</text>
+  <text x="630" y="106" font-size="11" fill="#EC3737" font-weight="700" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.05em">コマンドラインの世界</text>
+
+  <!-- Divider between GUI and CUI -->
+  <line x1="450" y1="112" x2="450" y2="228" stroke="#D1D1D1" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- Layer 2 left: GUI -->
+  <rect x="50" y="116" width="370" height="72" rx="4" fill="#E6E6E6"/>
+  <text x="235" y="150" font-size="18" font-weight="700" fill="#959595" text-anchor="middle">GUI</text>
+  <text x="235" y="167" font-size="10" fill="#959595" text-anchor="middle">Graphical User Interface</text>
+  <text x="235" y="181" font-size="11" fill="#959595" text-anchor="middle">ボタン・メニュー・アイコン</text>
+
+  <!-- Layer 2 right: CUI -->
+  <rect x="480" y="116" width="370" height="72" rx="4" fill="url(#cuiGrad)"/>
+  <text x="665" y="148" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">コマンドライン（CUI）</text>
+  <text x="665" y="165" font-size="10" fill="#fff" text-anchor="middle" opacity="0.85">Character User Interface</text>
+  <text x="665" y="179" font-size="11" fill="#fff" text-anchor="middle" opacity="0.9">テキストのコマンドを受け取る</text>
+
+  <!-- Arrow down to OS -->
+  <line x1="450" y1="188" x2="450" y2="208" stroke="#9C9191" stroke-width="2"/>
+  <polygon points="450,216 444,204 456,204" fill="#9C9191"/>
+
+  <!-- Layer 3: OS -->
+  <rect x="50" y="216" width="800" height="58" rx="4" fill="#6C6C6C"/>
+  <text x="450" y="250" font-size="15" font-weight="700" fill="#fff" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.06em">OS</text>
+
+  <!-- Arrow down -->
+  <line x1="450" y1="274" x2="450" y2="292" stroke="#4D4D4D" stroke-width="2"/>
+  <polygon points="450,300 444,288 456,288" fill="#4D4D4D"/>
+
+  <!-- Layer 4: CPU + Memory -->
+  <rect x="50" y="300" width="800" height="58" rx="4" fill="#3C3C3C"/>
+  <text x="450" y="336" font-size="15" font-weight="700" fill="#fff" text-anchor="middle" font-family="'Sometype Mono', monospace" letter-spacing="0.06em">CPU + MEMORY</text>
+</svg>
