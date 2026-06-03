@@ -176,10 +176,14 @@ marp slides.md --theme themes/minedia.css --server
 
 ### CI / 自動リリース
 
+`main` の `slides/` が更新されると、**自動でバージョンを採番してリリース**します。
+
 | トリガー | 動作 |
 |---|---|
-| `main` への push（`slides/` 変更時） | PDF / PPTX / HTML をビルドしてアーティファクトに保存（30日間） |
-| `v*` タグを push | 上記ビルド ＋ GitHub Release を自動作成してファイルを添付 |
+| `main` への push（`slides/` 変更時） | PDF / PPTX / HTML をビルド → 直近タグのパッチを +1 した新バージョン（例: `v0.0.5` → `v0.0.6`）でタグ＋ GitHub Release を自動作成 |
+| 手動実行（Actions → Run workflow） | `version` を指定すればその版でリリース（minor / major 上げ用）。空なら自動採番 |
+
+> パッチ以外（minor / major）を上げたいときだけ、Actions タブから手動実行して `version`（例: `v0.1.0`）を指定してください。
 
 ---
 
