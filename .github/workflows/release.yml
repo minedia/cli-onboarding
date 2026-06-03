@@ -6,9 +6,12 @@ on:
     paths:
       - 'slides/**'
       - '.github/workflows/release.yml'
-    tags:
-      - 'v*'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'リリースバージョン（空なら直近タグのパッチを自動+1。例: v0.1.0）'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -80,12 +83,17 @@ jobs:
           retention-days: 30
 
   release:
-    name: Create GitHub Release
+    name: Auto tag & release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout (with tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -95,18 +103,37 @@ jobs:
       - name: Show downloaded files
         run: ls -la dist/
 
-      - name: Compute version info
+      - name: Compute next version
         id: meta
+        env:
+          OVERRIDE: ${{ github.event.inputs.version }}
         run: |
-          VERSION="${GITHUB_REF#refs/tags/}"
+          git fetch --tags --force --quiet
+          if [ -n "$OVERRIDE" ]; then
+            NEXT="$OVERRIDE"
+          else
+            LATEST="$(git tag -l 'v*.*.*' | sort -V | tail -n1)"
+            if [ -z "$LATEST" ]; then
+              NEXT="v0.0.1"
+            else
+              ver="${LATEST#v}"
+              MAJOR="${ver%%.*}"
+              rest="${ver#*.}"
+              MINOR="${rest%%.*}"
+              PATCH="${rest#*.}"
+              NEXT="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+            fi
+          fi
           DATE_JP="$(TZ=Asia/Tokyo date +'%Y-%m-%d %H:%M JST')"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "version=$NEXT" >> "$GITHUB_OUTPUT"
           echo "date_jp=$DATE_JP" >> "$GITHUB_OUTPUT"
+          echo "次のリリース: $NEXT"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.version }}
+          target_commitish: ${{ github.sha }}
           name: ${{ steps.meta.outputs.version }}
           body: |
             **AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}**
