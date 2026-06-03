@@ -107,7 +107,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.version }}
-          name: "AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}"
+          name: ${{ steps.meta.outputs.version }}
           body: |
             **AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}**
 
