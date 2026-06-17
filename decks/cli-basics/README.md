@@ -4,6 +4,8 @@
 
 Minedia社員向け（社外公開可）の UNIX / CLI 入門ハンズオン講座。
 
+完成版スライド（PDF / PPTX / HTML）は [GitHub Releases](https://github.com/minedia/cli-onboarding/releases/latest) からダウンロードできます。
+
 ## なぜこの講座をやるのか
 
 > 1000個のファイル名を一括で変えたい。

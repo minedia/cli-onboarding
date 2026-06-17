@@ -7,25 +7,14 @@
 Minedia社員向け（社外公開可）の、CLI / ターミナルまわりのオンボーディング登壇資料シリーズです。
 1テーマ = 1デッキで独立しており、今後トピックを追加していきます。
 
-## 📥 スライドをダウンロード
-
-**最新版**: [GitHub Releases](https://github.com/minedia/cli-onboarding/releases/latest) から取得できます。
-
-1つのリリースに、その時点の**全デッキの成果物**が同梱されます。各デッキは以下3形式で配布します。
-
-- `<デッキ>-slides.pdf` — PDF版（印刷・配布用）
-- `<デッキ>-slides.pptx` — PowerPoint版（編集したい場合）
-- `<デッキ>-slides.html` — ブラウザで開く版
-
-`main` ブランチへの push で自動的に再ビルド・新しいリリースが作られます。
-
----
+各デッキの内容は、下表「詳細」列の各デッキ README を参照してください。
+完成版スライドは [GitHub Releases](https://github.com/minedia/cli-onboarding/releases/latest) からダウンロードできます。
 
 ## デッキ一覧
 
 | デッキ | テーマ | 所要 | 状態 | 詳細 |
 |--------|--------|------|------|------|
-| `cli-basics` | AI時代のコマンドライン入門 | 60分 | ✅ 公開中 | [README](decks/cli-basics/README.md) |
+| `cli-basics` | AI時代のコマンドライン入門 | 60分 | ✅ 公開中 | [概要](decks/cli-basics/README.md) |
 | _（追加予定）_ | — | — | 🚧 | — |
 
 > シリーズとして5本程度を予定しています。新しいデッキを追加したら、この表に1行追記してください。
@@ -137,4 +126,9 @@ marp slides.md --theme themes/minedia.css --server
 
 ## ライセンス
 
-教材は社外公開予定です。ライセンスは別途検討中。
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+本リポジトリの教材（スライド・図版・ドキュメント）は [クリエイティブ・コモンズ 表示 4.0 国際 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.ja) の下で公開しています。
+クレジット（© 株式会社マインディア）を明示すれば、商用・非商用を問わず、複製・改変・再配布が可能です。
+
+全文は [`LICENSE`](LICENSE) を参照してください。

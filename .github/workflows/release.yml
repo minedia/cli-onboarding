@@ -114,6 +114,13 @@ jobs:
       - name: Show downloaded files
         run: ls -la dist/
 
+      - name: Bundle all decks into a single zip
+        run: |
+          # 全デッキの成果物を1つの zip にまとめる（-j でパスを平坦化）
+          zip -j cli-onboarding-slides.zip dist/*-slides.*
+          echo "----- zip contents -----"
+          unzip -l cli-onboarding-slides.zip
+
       - name: Compute next version
         id: meta
         env:
@@ -149,12 +156,16 @@ jobs:
             echo "- **コミット**: [\`${{ github.sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})"
             echo "- **ワークフロー実行**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
             echo ""
+            echo "## ダウンロード"
+            echo ""
+            echo "\`cli-onboarding-slides.zip\` に、全デッキのスライド（PDF / PPTX / HTML）を1セットで同梱しています。"
+            echo ""
             echo "## 収録デッキ"
             echo ""
             for f in dist/*-slides.pdf; do
               [ -e "$f" ] || continue
               base="$(basename "$f" -slides.pdf)"
-              echo "- **$base** — \`$base-slides.pdf\`（PDF） / \`$base-slides.pptx\`（PowerPoint） / \`$base-slides.html\`（ブラウザ）"
+              echo "- **$base** — PDF / PPTX / HTML"
             done
           } > release-notes.md
           echo "----- release-notes.md -----"
@@ -167,7 +178,7 @@ jobs:
           target_commitish: ${{ github.sha }}
           name: ${{ steps.meta.outputs.version }}
           body_path: release-notes.md
-          files: dist/*-slides.*
+          files: cli-onboarding-slides.zip
           make_latest: true
           draft: false
           prerelease: false
