@@ -22,10 +22,10 @@ dist/
 build/
 
 # Marp build outputs
-slides/*.html
-slides/*.pdf
-slides/*.pptx
-slides/*.png
+decks/**/*.html
+decks/**/*.pdf
+decks/**/*.pptx
+decks/**/*.png
 
 # Playwright MCP artifacts
 .playwright-mcp/

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'slides/**'
+      - 'decks/**'
       - '.github/workflows/release.yml'
   workflow_dispatch:
     inputs:
@@ -17,10 +17,35 @@ permissions:
   contents: write
 
 jobs:
+  discover:
+    name: Discover decks
+    runs-on: ubuntu-latest
+    outputs:
+      decks: ${{ steps.find.outputs.decks }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find decks
+        id: find
+        run: |
+          # decks/<slug>/slides.md を持つディレクトリの slug を JSON 配列で出力
+          decks=$(find decks -mindepth 2 -maxdepth 2 -name slides.md -printf '%h\n' \
+            | sed 's|decks/||' \
+            | sort \
+            | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "decks=$decks" >> "$GITHUB_OUTPUT"
+          echo "発見したデッキ: $decks"
+
   build:
-    name: Build slides (PDF / PPTX / HTML)
+    name: Build ${{ matrix.deck }}
+    needs: discover
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        deck: ${{ fromJson(needs.discover.outputs.decks) }}
 
     steps:
       - name: Checkout
@@ -39,47 +64,32 @@ jobs:
       - name: Install Marp CLI
         run: npm install -g @marp-team/marp-cli
 
-      - name: Build PDF
-        working-directory: slides
+      - name: Build PDF / PPTX / HTML
+        working-directory: decks/${{ matrix.deck }}
         run: |
-          marp slides.md \
-            --theme themes/minedia.css \
-            --pdf \
-            --allow-local-files \
-            -o cli-basics-slides.pdf
-
-      - name: Build PPTX
-        working-directory: slides
-        run: |
-          marp slides.md \
-            --theme themes/minedia.css \
-            --pptx \
-            --allow-local-files \
-            -o cli-basics-slides.pptx
-
-      - name: Build HTML
-        working-directory: slides
-        run: |
-          marp slides.md \
-            --theme themes/minedia.css \
-            --html \
-            --allow-local-files \
-            -o cli-basics-slides.html
+          for fmt in pdf pptx html; do
+            marp slides.md \
+              --theme themes/minedia.css \
+              --$fmt \
+              --allow-local-files \
+              -o "${{ matrix.deck }}-slides.$fmt"
+          done
 
       - name: Verify outputs
+        working-directory: decks/${{ matrix.deck }}
         run: |
-          ls -la slides/cli-basics-slides.pdf
-          ls -la slides/cli-basics-slides.pptx
-          ls -la slides/cli-basics-slides.html
+          ls -la "${{ matrix.deck }}-slides.pdf"
+          ls -la "${{ matrix.deck }}-slides.pptx"
+          ls -la "${{ matrix.deck }}-slides.html"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: slides-${{ github.sha }}
+          name: deck-${{ matrix.deck }}-${{ github.sha }}
           path: |
-            slides/cli-basics-slides.pdf
-            slides/cli-basics-slides.pptx
-            slides/cli-basics-slides.html
+            decks/${{ matrix.deck }}/${{ matrix.deck }}-slides.pdf
+            decks/${{ matrix.deck }}/${{ matrix.deck }}-slides.pptx
+            decks/${{ matrix.deck }}/${{ matrix.deck }}-slides.html
           retention-days: 30
 
   release:
@@ -94,11 +104,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download build artifacts
+      - name: Download all deck artifacts
         uses: actions/download-artifact@v4
         with:
-          name: slides-${{ github.sha }}
+          pattern: deck-*-${{ github.sha }}
           path: dist
+          merge-multiple: true
 
       - name: Show downloaded files
         run: ls -la dist/
@@ -129,28 +140,34 @@ jobs:
           echo "date_jp=$DATE_JP" >> "$GITHUB_OUTPUT"
           echo "次のリリース: $NEXT"
 
+      - name: Generate release notes
+        run: |
+          {
+            echo "**CLI オンボーディング登壇資料 ${{ steps.meta.outputs.version }}**"
+            echo ""
+            echo "- **リリース日時**: ${{ steps.meta.outputs.date_jp }}"
+            echo "- **コミット**: [\`${{ github.sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})"
+            echo "- **ワークフロー実行**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            echo ""
+            echo "## 収録デッキ"
+            echo ""
+            for f in dist/*-slides.pdf; do
+              [ -e "$f" ] || continue
+              base="$(basename "$f" -slides.pdf)"
+              echo "- **$base** — \`$base-slides.pdf\`（PDF） / \`$base-slides.pptx\`（PowerPoint） / \`$base-slides.html\`（ブラウザ）"
+            done
+          } > release-notes.md
+          echo "----- release-notes.md -----"
+          cat release-notes.md
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.version }}
           target_commitish: ${{ github.sha }}
           name: ${{ steps.meta.outputs.version }}
-          body: |
-            **AI時代のコマンドライン入門 スライド ${{ steps.meta.outputs.version }}**
-
-            - **リリース日時**: ${{ steps.meta.outputs.date_jp }}
-            - **コミット**: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-            - **ワークフロー実行**: [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-            ## ダウンロード
-
-            - **`cli-basics-slides.pdf`** — PDF版（印刷・配布用）
-            - **`cli-basics-slides.pptx`** — PowerPoint版（編集したい場合）
-            - **`cli-basics-slides.html`** — ブラウザ版（最も忠実に表示される）
-          files: |
-            dist/cli-basics-slides.pdf
-            dist/cli-basics-slides.pptx
-            dist/cli-basics-slides.html
+          body_path: release-notes.md
+          files: dist/*-slides.*
           make_latest: true
           draft: false
           prerelease: false
