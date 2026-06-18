@@ -1,0 +1,385 @@
+/* @theme hackathon */
+
+/*
+ * Claude Code ハッカソン — Marp テーマ
+ * 元 Astro サイトのデザイントークンを再現
+ *   navy   #1a1a2e  本文テキスト
+ *   accent #003366  見出し・リンク・強調
+ *   accent-light #004d99
+ *   code-bg #1e293b  コードブロック背景
+ *   fonts: Inter / Noto Sans JP（PNG/PDF 描画時は OS の日本語フォントへフォールバック）
+ */
+
+:root {
+  --navy: #1a1a2e;
+  --accent: #003366;
+  --accent-light: #004d99;
+  --bg: #ffffff;
+  --muted: #5b6472;
+  --border: #e2e6ec;
+  --soft: #f4f7fb;
+  --code-bg: #1e293b;
+  --code-fg: #e2e8f0;
+}
+
+/* ===== スライド全体 ===== */
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 56px 64px 64px;
+  font-family: "Inter", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+    "Yu Gothic", "YuGothic", "Noto Sans JP", "Noto Sans CJK JP", "Meiryo",
+    system-ui, sans-serif;
+  font-size: 23px;
+  line-height: 1.62;
+  color: var(--navy);
+  background: var(--bg);
+  letter-spacing: 0.005em;
+  font-feature-settings: "palt" 1;
+}
+
+/* ===== 見出し ===== */
+section h1 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0 0 18px;
+}
+
+section h2 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  margin: 0 0 22px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent);
+  line-height: 1.3;
+}
+
+section h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 22px 0 10px;
+  line-height: 1.4;
+}
+
+section h4 {
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--accent-light);
+  margin: 16px 0 8px;
+}
+
+/* ===== 本文・リスト ===== */
+section p {
+  margin: 0 0 14px;
+}
+
+section ul,
+section ol {
+  margin: 0 0 14px;
+  padding-left: 1.3em;
+}
+
+section li {
+  margin: 0 0 7px;
+}
+
+section li::marker {
+  color: var(--accent-light);
+}
+
+section strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+section a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 51, 102, 0.35);
+}
+
+section hr {
+  display: none;
+}
+
+/* ===== インラインコード ===== */
+section :not(pre) > code {
+  background: #eef1f6;
+  color: var(--accent);
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+  font-size: 0.86em;
+  font-family: "SFMono-Regular", "Consolas", "Liberation Mono", Menlo,
+    "Noto Sans CJK JP", monospace;
+}
+
+/* ===== コードブロック ===== */
+section pre {
+  background: var(--code-bg);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 4px 0 16px;
+  font-size: 19px;
+  line-height: 1.55;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+}
+
+section pre code {
+  background: transparent;
+  color: var(--code-fg);
+  padding: 0;
+  font-family: "SFMono-Regular", "Consolas", "Liberation Mono", Menlo,
+    "Noto Sans CJK JP", monospace;
+  /* 長いコマンドが横にはみ出さないよう折り返す（レイアウト崩れ防止） */
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ===== テーブル ===== */
+section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 16px;
+  font-size: 19px;
+  line-height: 1.45;
+  table-layout: fixed;
+}
+
+section th,
+section td {
+  border: 1px solid var(--border);
+  padding: 9px 14px;
+  text-align: left;
+  vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+section thead th {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  border-color: var(--accent);
+}
+
+section tbody tr:nth-child(even) {
+  background: var(--soft);
+}
+
+/* ===== 引用 = 注釈・Tips ボックス ===== */
+section blockquote {
+  margin: 6px 0 16px;
+  padding: 14px 20px;
+  background: var(--soft);
+  border-left: 4px solid var(--accent-light);
+  border-radius: 0 8px 8px 0;
+  color: #3a4250;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+section blockquote p {
+  margin: 0 0 6px;
+}
+
+section blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+section blockquote strong {
+  color: var(--accent);
+}
+
+section blockquote a {
+  color: var(--accent);
+}
+
+/* ===== ページ番号・フッター ===== */
+section::after {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+section footer {
+  position: absolute;
+  bottom: 24px;
+  left: 64px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+section header {
+  position: absolute;
+  top: 22px;
+  left: 64px;
+  right: 64px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ============================================================
+ *  レイアウトバリエーション
+ * ============================================================ */
+
+/* 表紙 / セクション扉（中央寄せ） */
+section.lead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #0b1f3a 0%, #1a1a2e 55%, #003366 100%);
+  color: #ffffff;
+  padding: 64px 80px;
+}
+
+section.lead h1 {
+  font-size: 54px;
+  line-height: 1.22;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+section.lead h2 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #b9c7dc;
+  border: none;
+  padding: 0;
+  margin: 0 0 28px;
+  letter-spacing: 0;
+}
+
+section.lead p {
+  font-size: 21px;
+  color: #d4ddea;
+}
+
+section.lead strong {
+  color: #ffffff;
+}
+
+section.lead a {
+  color: #cfe0f5;
+  border-bottom-color: rgba(207, 224, 245, 0.5);
+}
+
+section.lead::after {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* セクション扉（章の区切り） */
+section.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 64px 80px;
+}
+
+section.section h1,
+section.section h2 {
+  color: #ffffff;
+  border: none;
+  padding: 0;
+}
+
+section.section .kicker {
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  color: #9db8d8;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+section.section p {
+  color: #d4ddea;
+  font-size: 21px;
+}
+
+/* 密度の高いスライド向け（フォント・余白を圧縮） */
+section.compact {
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 44px 56px 52px;
+}
+
+section.compact h2 {
+  font-size: 27px;
+  margin-bottom: 16px;
+  padding-bottom: 9px;
+}
+
+section.compact h3 {
+  font-size: 21px;
+  margin: 14px 0 7px;
+}
+
+section.compact table {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+section.compact th,
+section.compact td {
+  padding: 6px 11px;
+}
+
+section.compact pre {
+  font-size: 17px;
+  padding: 14px 18px;
+}
+
+section.compact blockquote {
+  font-size: 17px;
+  padding: 11px 16px;
+}
+
+section.compact li {
+  margin-bottom: 5px;
+}
+
+/* さらに密度が高い表向け */
+section.dense {
+  font-size: 18px;
+  line-height: 1.4;
+  padding: 40px 52px 48px;
+}
+
+section.dense h2 {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+
+section.dense table {
+  font-size: 15.5px;
+  line-height: 1.35;
+}
+
+section.dense th,
+section.dense td {
+  padding: 5px 9px;
+}
+
+/* 2カラム（必要に応じて） */
+section.cols {
+  display: block;
+}
+
+section.cols .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
