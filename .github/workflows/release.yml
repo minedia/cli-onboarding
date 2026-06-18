@@ -67,9 +67,11 @@ jobs:
       - name: Build PDF / PPTX / HTML
         working-directory: decks/${{ matrix.deck }}
         run: |
+          # デッキごとの themes/ を丸ごと登録し、slides.md の frontmatter の
+          # theme: で実テーマを選択する（デッキ別テーマに対応）。
           for fmt in pdf pptx html; do
             marp slides.md \
-              --theme themes/minedia.css \
+              --theme-set themes/ \
               --$fmt \
               --allow-local-files \
               -o "${{ matrix.deck }}-slides.$fmt"
