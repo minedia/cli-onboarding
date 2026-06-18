@@ -85,7 +85,7 @@ jobs:
           ls -la "${{ matrix.deck }}-slides.html"
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deck-${{ matrix.deck }}-${{ github.sha }}
           path: |
@@ -102,12 +102,12 @@ jobs:
 
     steps:
       - name: Checkout (with tags)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Download all deck artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: deck-*-${{ github.sha }}
           path: dist
